@@ -19,11 +19,23 @@ check_exists "tmux"
 check_exists "vim"
 check_exists "compton"
 
-echo "copying dotfiles..."
+echo "Copying dotfiles..."
 cd dotfiles
 for f in *; do
-	rm -r "$HOME/.$f"
+	rm -rf "$HOME/.$f"
 	cp -r "$f" "$HOME/.$f"
 done
 cd ..
-echo "done"
+echo "Done."
+
+echo "Copying executables..."
+mkdir -p "$HOME/bin"
+cd bin
+for f in *; do
+	rm -rf "$HOME/bin/$f"
+	cp -r "$f" "$HOME/bin/$f"
+done
+cd ..
+echo "Done."
+
+echo "Everything set up!"

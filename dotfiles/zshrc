@@ -6,6 +6,7 @@ alias ls="ls --color=always"
 alias ll="ls -l"
 alias la="ls -a"
 source .zshalias
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/bin:lusr/games:/usr/local/games:$HOME/bin"
 
 # completion
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
