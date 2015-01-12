@@ -4,8 +4,12 @@ check_exists()
 {
 	which "$1" 1> /dev/null
 	if [ "$?" -ne 0 ]; then
-		echo "Missing command: ${1}. install it."
-		exit 1
+		echo "Warning: Missing command: ${1}. Continue? (y/n)"
+		read response
+		if [ "$response" != "y" ]; then
+			echo "Aborting."
+			exit 1
+		fi
 	fi
 }
 
