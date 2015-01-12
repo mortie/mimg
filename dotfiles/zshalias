@@ -1,0 +1,1 @@
+alias irc="ssh serve.mort.coffee -t \"tmux attach -t $1\""

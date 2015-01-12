@@ -1,0 +1,69 @@
+set nocompatible               " be iMproved
+filetype off                   " required!
+
+ " Coffeescript
+call pathogen#infect()
+syntax enable
+filetype plugin indent on
+
+ " Vundle start
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+ " Plugins
+Plugin 'gmarik/Vundle.vim'
+Plugin 'kchmck/vim-coffee-script'
+
+ " Vundle end
+call vundle#end()            " required
+filetype plugin indent on    " required
+
+" Bind keys
+set mouse=a
+map <ScrollWheelUp> <C-Y><C-Y><C-Y>
+map <ScrollWheelDown> <C-E><C-E><C-E>
+map <C-n> :NERDTreeToggle<CR>
+map <F1> :SaveSession<CR>
+map <F2> :OpenSession!<CR>
+
+" Configure
+syntax on
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set number
+:let g:session_autosave = 'no'
+
+" Replace characters
+set list
+set listchars=tab:>.
+
+ " Useful things
+nmap <C-o> :
+nmap \p :set paste!<CR>
+nmap <C-c> <ESC>
+
+ " Search options
+set incsearch
+set ignorecase
+set smartcase
+set hlsearch
+
+ " Disable swp
+set noswapfile
+
+ " Dvorak: Fix hjkl navigation 
+noremap h h
+noremap t k
+noremap n j
+noremap s l
+
+ " Dvorak: Fix control keys
+noremap a v
+noremap o y
+noremap e p
+
+ " Make nxc look like C
+au BufNewFile,BufRead *.nxc set filetype=c
+
+set colorcolumn=80
