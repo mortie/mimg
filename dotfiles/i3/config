@@ -14,7 +14,7 @@ set $mod Mod4
 #STARTUP
 
 exec compton --config ~/.comptonrc --backend glx --vsync opengl-swc --paint-on-overlay -b
-exec feh --bg-scale ~/pictures/efaw.jpg
+exec feh --bg-scale ~/background.jpg
 # hide dem borders
 hide_edge_borders both
 
@@ -217,5 +217,5 @@ bindsym $mod+k         exec xdotool mousemove_relative -- 50  0
 bindsym $mod+comma exec xdotool click 1
 
 exec sh .startup.sh
-exec xset r rate 150 60
-exec setxkbmap dvorak
+exec xset r rate 200 60
+exec setxkbmap dvorak -option "ctrl:nocaps"
