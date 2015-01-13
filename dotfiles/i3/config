@@ -216,4 +216,6 @@ bindsym $mod+j         exec xdotool mousemove_relative -- 0 -50
 bindsym $mod+k         exec xdotool mousemove_relative -- 50  0
 bindsym $mod+comma exec xdotool click 1
 
-exec /home/martin/mort/startup.sh
+exec sh .startup.sh
+exec xset r rate 150 60
+exec setxkbmap dvorak
