@@ -200,10 +200,10 @@ bar {
 }
 
 # volume and audio
-bindsym XF86AudioLowerVolume exec vol -10
-bindsym XF86AudioRaiseVolume exec vol +10
-bindsym XF86MonBrightnessDown exec xbacxlight -dec 10
-bindsym XF86MonBrightnessUp exec xbacxlight -inc 10
+bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- && killall -USR1 i3status
+bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ && killall -USR1 i3status
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 
 # augment mouse
 bindsym $mod+a exec xdotool mousemove_relative -- -10 0
