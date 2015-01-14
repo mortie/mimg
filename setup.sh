@@ -14,12 +14,13 @@ check_exists()
 }
 
 check_exists "zsh"
-check_exists "i3"
 check_exists "tmux"
 check_exists "vim"
+check_exists "i3"
 check_exists "compton"
 check_exists "amixer"
 check_exists "xbacklight"
+check_exists "feh"
 
 echo "Copying dotfiles..."
 cd dotfiles
