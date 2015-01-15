@@ -217,7 +217,7 @@ bindsym $mod+k         exec xdotool mousemove_relative -- 50  0
 bindsym $mod+comma exec xdotool click 1
 
 # toggle touchpad
-bindsym $mod+d exec toggleTouchpad
+bindsym $mod+d exec touchpad-toggle
 
 exec sh .startup.sh
 exec xset r rate 200 60
