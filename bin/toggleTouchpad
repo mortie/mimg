@@ -1,0 +1,8 @@
+#!/bin/sh
+synclient -l | grep -P "TouchpadOff\s+\=\s+0"
+
+if [ $? -eq 0 ]; then
+	synclient TouchpadOff=1
+else
+	synclient TouchpadOff=0
+fi
