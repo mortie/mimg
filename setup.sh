@@ -49,4 +49,13 @@ done
 cd ..
 echo "Done."
 
+echo "Compiling from source..."
+mkdir tmp
+cd tmp
+for f in ../src/*; do
+	fname=`basename "$f" .install`
+	if [ ! -f "~/bin/$fname" ]; then
+		sh "../src/$($fnmae).install"
+	fi
+done
 echo "Everything set up!"

@@ -1,0 +1,7 @@
+#!/bin/sh
+dir="$(mktemp -d)"
+cd "$dir"
+youtube-dl "$1"
+airstream * -o "$2"
+cd ..
+rm -r "$dir"
