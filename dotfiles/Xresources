@@ -2,7 +2,7 @@ URxvt.termName:           xterm-256color
 URxvt.scrollBar:          off
 URxvt.font:               xft:Monospace:size=10
 URxct.boldFont:           xft:Monospace:size=10
-URxvt*letterSpace:        0xft:
+URxvt*letterSpace:        0:
 URxvt.internalBorder:     1xft:
 URxvt*selectToClipboard:  true
 URxvt*saveLines:          10000

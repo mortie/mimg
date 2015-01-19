@@ -20,6 +20,8 @@ check_exists "compton"
 check_exists "amixer"
 check_exists "xbacklight"
 check_exists "feh"
+check_exists "xclip"
+check_exists "xsel"
 
 if [ $commands_missing -ne 0 ]; then
 	echo "Some commands are missing. Continue? (y/n)"
@@ -49,13 +51,4 @@ done
 cd ..
 echo "Done."
 
-echo "Compiling from source..."
-mkdir tmp
-cd tmp
-for f in ../src/*; do
-	fname=`basename "$f" .install`
-	if [ ! -f "~/bin/$fname" ]; then
-		sh "../src/$($fnmae).install"
-	fi
-done
 echo "Everything set up!"
