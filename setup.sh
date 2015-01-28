@@ -1,30 +1,42 @@
-#!/bin/sh
+#!/bin/bash
 
-commands_missing=0
-check_exists()
+issues=0
+check_command()
 {
 	which "$1" 1> /dev/null
 	if [ "$?" -ne 0 ]; then
-		commands_missing=1
+		issues=1
 		echo "Missing command: $1"
 	fi
 }
 
-check_exists "zsh"
-check_exists "tmux"
-check_exists "vim"
-check_exists "python"
-check_exists "xdotool"
-check_exists "i3"
-check_exists "compton"
-check_exists "amixer"
-check_exists "xbacklight"
-check_exists "feh"
-check_exists "xclip"
-check_exists "xsel"
+issues=0
+check_file()
+{
+	if [ ! -f "$1" ]; then
+		issues=1
+		echo "Missing file: $1"
+	fi
+}
 
-if [ $commands_missing -ne 0 ]; then
-	echo "Some commands are missing. Continue? (y/n)"
+check_command "zsh"
+check_command "tmux"
+check_command "vim"
+check_command "python"
+check_command "xdotool"
+check_command "i3"
+check_command "compton"
+check_command "amixer"
+check_command "xbacklight"
+check_command "feh"
+check_command "xclip"
+check_command "xsel"
+check_command "byzanz-record"
+
+check_file ~/.mrecrc
+
+if [ $issues -ne 0 ]; then
+	echo "Some commands or files are missing. Continue? (y/n)"
 	read response
 	if [ "$response" != "y" ]; then
 		echo "Aborting."

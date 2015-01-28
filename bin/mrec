@@ -1,0 +1,19 @@
+#!/bin/bash
+
+source ~/.mrecrc
+
+if [ "$1" = "" ] && [ ! -f ~/.mrecname ]; then
+	echo "mrec <name>"
+	exit 1
+elif [ "$1" = "" ]; then #stop recording
+	name=$(cat ~/.mrecname)
+	rm ~/.mrecname &>/dev/null
+	sleep 0.2
+	mupload ~/.mrecfile.ogv "img/${name}.ogv"
+	rm ~/.mrecfile.ogv &>/dev/null
+else #start recording
+	rm ~/.mrecname &>/dev/null
+	sleep 0.2
+	echo "$1" > ~/.mrecname
+	byzanz-record -x "$X" -y "$Y" -w "$W" -h "$H" --delay 0 --exec=mrecsleep ~/.mrecfile.ogv &
+fi

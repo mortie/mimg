@@ -1,0 +1,5 @@
+#!/bin/bash
+
+while [ -f ~/.mrecname ]; do
+	sleep 0.1
+done
