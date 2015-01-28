@@ -8,4 +8,6 @@ sleep 0.2
 DIR=`mktemp -d`
 gnome-screenshot -f "$DIR/pic.png"
 scp "$DIR/pic.png" "martin@serve.mort.coffee:/var/www/mort.coffee/d/public/img/${1}.png"
-echo "http://d.mort.coffee/img/${1}.png"
+URL="http://d.mort.coffee/img/${1}.png"
+echo $URL | xclip
+echo $URL
