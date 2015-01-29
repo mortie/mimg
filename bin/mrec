@@ -9,11 +9,10 @@ elif [ "$1" = "" ]; then #stop recording
 	name=$(cat ~/.mrecname)
 	rm ~/.mrecname &>/dev/null
 	sleep 0.2
-	mupload ~/.mrecfile.ogv "img/${name}.ogv"
-	rm ~/.mrecfile.ogv &>/dev/null
+	mupload ~/.mrecfile.gif "img/${name}.ogv"
 else #start recording
 	rm ~/.mrecname &>/dev/null
 	sleep 0.2
 	echo "$1" > ~/.mrecname
-	byzanz-record -x "$X" -y "$Y" -w "$W" -h "$H" --delay 0 --exec=mrecsleep ~/.mrecfile.ogv &
+	byzanz-record -x "$X" -y "$Y" -w "$W" -h "$H" --delay 0 --exec=mrec-sleep ~/.mrecfile.gif &
 fi
