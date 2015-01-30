@@ -6,13 +6,15 @@ if [ "$1" = "" ] && [ ! -f ~/.mrecname ]; then
 	echo "mrec <name>"
 	exit 1
 elif [ "$1" = "" ]; then #stop recording
+	sleep 5
 	name=$(cat ~/.mrecname)
 	rm ~/.mrecname &>/dev/null
 	sleep 0.2
-	mupload ~/.mrecfile.gif "img/${name}.ogv"
+	mupload ~/.mrecfile.gif "img/${name}.gif"
 else #start recording
+	rm ~/.mrecfile.gif &>/dev/null
 	rm ~/.mrecname &>/dev/null
 	sleep 0.2
 	echo "$1" > ~/.mrecname
-	byzanz-record -x "$X" -y "$Y" -w "$W" -h "$H" --delay 0 --exec=mrec-sleep ~/.mrecfile.gif &
+	mconv -y -f x11grab -video_size ${W}x${h} -i $DISPLAY -c:v ffvhuff -c:a none ~/.mrecfile.ogv
 fi
