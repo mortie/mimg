@@ -7,5 +7,5 @@ fi
 
 scp "$1" "martin@serve.mort.coffee:/var/www/mort.coffee/d/public/$2"
 URL="http://d.mort.coffee/$2"
-echo $URL | xclip
+echo $URL | xsel -i
 echo $URL

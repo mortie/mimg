@@ -29,7 +29,6 @@ check_command "compton"
 check_command "amixer"
 check_command "xbacklight"
 check_command "feh"
-check_command "xclip"
 check_command "xsel"
 check_command "byzanz-record"
 
