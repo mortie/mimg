@@ -11,10 +11,6 @@
 
 set $mod Mod4
 
-#STARTUP
-
-exec compton --config ~/.comptonrc --backend glx --vsync opengl-swc --paint-on-overlay -b
-exec feh --bg-scale ~/background.jpg
 # hide dem borders
 hide_edge_borders both
 
@@ -183,35 +179,3 @@ bindsym $mod+r mode "resize"
 bar {
 	status_command i3status
 }
-
-# volume and audio
-bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master 5%- && killall -USR1 i3status
-bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master 5%+ && killall -USR1 i3status
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-
-# augment mouse
-bindsym $mod+a exec xdotool mousemove_relative -- -50 0
-bindsym $mod+o exec xdotool mousemove_relative -- 0  50
-bindsym $mod+e exec xdotool mousemove_relative -- 0 -50
-bindsym $mod+u exec xdotool mousemove_relative -- 50  0
-bindsym $mod+semicolon exec xdotool mousemove_relative -- -10m 0
-bindsym $mod+q         exec xdotool mousemove_relative -- 0  10
-bindsym $mod+j         exec xdotool mousemove_relative -- 0 -10
-bindsym $mod+k         exec xdotool mousemove_relative -- 10  0
-bindsym $mod+comma exec xdotool click 1
-
-# toggle touchpad
-bindsym $mod+d exec touchpad-toggle
-
-# paste
-bindsym $mod+shift+v exec xdotool click 2
-
-# norwegian
-bindsym $mod+shift+x exec setxkbmap no
-bindsym $mod+shift+b exec setxkbmap dvorak
-
-# things
-exec sh .startup.sh
-exec xset r rate 200 60
-exec setxkbmap dvorak -option "ctrl:nocaps"

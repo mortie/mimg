@@ -4,8 +4,8 @@ if [ "$1" = "" ]; then
 	echo "mshot <name>"
 fi
 
-sleep 0.2
+sleep 0.1
 DIR=`mktemp -d`
-gnome-screenshot -f "$DIR/pic.png"
+scrot "$DIR/pic.png"
 
 mupload "$DIR/pic.png" "img/${1}.png"

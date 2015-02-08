@@ -3,7 +3,7 @@
 issues=0
 check_command()
 {
-	which "$1" 1> /dev/null
+	which "$1" &> /dev/null
 	if [ "$?" -ne 0 ]; then
 		issues=1
 		echo "Missing command: $1"
@@ -30,7 +30,8 @@ check_command "amixer"
 check_command "xbacklight"
 check_command "feh"
 check_command "xsel"
-check_command "byzanz-record"
+check_command "ffmpeg"
+check_command "sxhkd"
 
 check_file ~/.mrecrc
 
@@ -61,5 +62,17 @@ for f in *; do
 done
 cd ..
 echo "Done."
+
+while getopts :m option; do
+	case "$option" in
+	m)
+		echo "Not switching mod and alt keys."
+		echo "" > ~/.Xmodmaprc
+		;;
+	*)
+		echo "Unknown option: $option"
+		;;
+	esac
+done
 
 echo "Everything set up!"
