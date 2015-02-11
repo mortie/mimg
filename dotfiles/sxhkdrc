@@ -14,11 +14,11 @@ alt + XF86MonBrightness{Up,Down}
 mod4 + {a, u}
 	xdotool mousemove_relative -- {-50, 50}, 0
 mod4 + {o, e}
-	xdotool mousemove_relative -- 0, {-50, 50}
+	xdotool mousemove_relative -- 0, {50, -50}
 mod4 + {semicolon, k}
 	xdotool mousemove_relative -- {-10, 10}, 0
 mod4 + {q, j}
-	xdotool mousemove_relative -- 0, {-10, 10}
+	xdotool mousemove_relative -- 0, {10, -10}
 mod4 + comma
 	xdotool click 1
 
