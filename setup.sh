@@ -32,6 +32,7 @@ check_command "feh"
 check_command "xsel"
 check_command "ffmpeg"
 check_command "sxhkd"
+check_command "vimb"
 
 check_file ~/.mrecrc
 
@@ -49,6 +50,15 @@ cd dotfiles
 for f in *; do
 	rm -rf "$HOME/.$f"
 	cp -r "$f" "$HOME/.$f"
+done
+cd ..
+echo "Done."
+
+echo "Copying config files..."
+cd config
+for f in *; do
+	rm -rf "$HOME/.config/$f"
+	cp -r "$f" "$HOME/.config/$f"
 done
 cd ..
 echo "Done."
