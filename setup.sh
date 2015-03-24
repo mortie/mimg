@@ -30,9 +30,8 @@ check_command "amixer"
 check_command "xbacklight"
 check_command "feh"
 check_command "xsel"
-check_command "ffmpeg"
 check_command "sxhkd"
-check_command "vimb"
+check_command "recordmydesktop"
 
 check_file ~/.mrecrc
 
