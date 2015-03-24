@@ -6,7 +6,6 @@ if [ "$1" = "" ] && [ ! -f ~/.mrecname ]; then
 	echo "mrec <name>"
 	exit 1
 elif [ "$1" = "" ]; then #stop recording
-	sleep 5
 	name=$(cat ~/.mrecname)
 	pid=$(cat ~/.mrecpid)
 
@@ -21,6 +20,7 @@ elif [ "$1" = "" ]; then #stop recording
 	while [ -e "/proc/$pid" ]; do sleep 0.1; done
 
 	mupload ~/.mrecfile.ogv "vid/${name}.ogv"
+	msound ding.mp3
 else #start recording
 	rm ~/.mrecfile.ogv &>/dev/null
 	rm ~/.mrecname &>/dev/null
