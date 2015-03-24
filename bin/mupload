@@ -5,7 +5,7 @@ if [ ! -f "$1" ] || [ "$2" == "" ]; then
 	exit 1
 fi
 
-scp "$1" "martin@serve.mort.coffee:/var/www/mort.coffee/d/public/$2"
 URL="http://d.mort.coffee/$2"
 echo $URL | xsel -ib
+scp "$1" "martin@serve.mort.coffee:/var/www/mort.coffee/d/public/$2"
 echo $URL

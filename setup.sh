@@ -73,6 +73,11 @@ done
 cd ..
 echo "Done."
 
+echo "Copying assets..."
+rm -r "$HOME/assets"
+cp -r assets "$HOME/assets"
+echo "Done."
+
 while getopts :m option; do
 	case "$option" in
 	m)
