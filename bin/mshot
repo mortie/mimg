@@ -12,7 +12,7 @@ mupload "$DIR/pic.png" "img/${1}.png"
 if [ $? -eq 0 ]; then
 	msound camera-shutter.mp3
 else
-	msound error.mp3
+	merror "mshot" "Couldn't upload image file."
 	echo "An error occurred." 1>&2
 	exit 1
 fi

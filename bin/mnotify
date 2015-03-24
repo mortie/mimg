@@ -1,0 +1,4 @@
+#!/bin/bash
+
+msound ding.mp3
+notify-send -u low -i ~/assets/img/info.png "$1" "$2"

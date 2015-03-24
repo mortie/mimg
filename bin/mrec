@@ -17,14 +17,18 @@ elif [ "$1" = "" ]; then #stop recording
 
 	kill $pid
 
-	while [ -e "/proc/$pid" ]; do sleep 0.1; done
+	while [ -e "/proc/$pid" ]; do 
+		clear
+		cat ~/.mreclog
+		sleep 0.1;
+	done
 
 	mupload ~/.mrecfile.ogv "vid/${name}.ogv"
 
 	if [ $? -eq 0 ]; then
-		msound ding.mp3
+		mnotify "mrec" "File uploaded to $URL"
 	else
-		msound error.mp3
+		merror "mrec" "Couldn't upload recording."
 		echo "An error occurred." 1>&2
 		exit 1
 	fi
@@ -32,9 +36,10 @@ else #start recording
 	rm ~/.mrecfile.ogv &>/dev/null
 	rm ~/.mrecname &>/dev/null
 	rm ~/.mrecpid &>/dev/null
+	rm ~/.mreclog &>/dev/null
 	sleep 0.2
 	echo "$1" > ~/.mrecname
 
-	recordmydesktop -x $X -y $Y --width $W --height $H -o ~/.mrecfile.ogv &
+	recordmydesktop -x $X -y $Y --width $W --height $H -o ~/.mrecfile.ogv > ~/.mreclog 2>&1 &
 	echo $! > ~/.mrecpid
 fi

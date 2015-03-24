@@ -1,4 +1,5 @@
 #!/bin/sh
+
 dir="$(mktemp -d)"
 cd "$dir"
 youtube-dl "$1"

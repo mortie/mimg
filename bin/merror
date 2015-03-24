@@ -1,0 +1,4 @@
+#!/bin/bash
+
+msound error.mp3
+notify-send -u critical -i ~/assets/img/error.png "$1" "$2"
