@@ -32,6 +32,8 @@ check_command "feh"
 check_command "xsel"
 check_command "sxhkd"
 check_command "recordmydesktop"
+check_command "mplayer"
+check_command "scrot"
 
 check_file ~/.mrecrc
 
