@@ -74,7 +74,7 @@ cd ..
 echo "Done."
 
 echo "Copying assets..."
-rm -r "$HOME/assets"
+rm -fr "$HOME/assets"
 cp -r assets "$HOME/assets"
 echo "Done."
 

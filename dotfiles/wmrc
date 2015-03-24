@@ -8,3 +8,5 @@ feh --bg-scale ~/background.jpg
 xmodmap .Xmodmaprc
 
 sxhkd -c ~/.sxhkdrc &
+
+sh ~/.startup.sh
