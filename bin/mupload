@@ -1,11 +1,18 @@
 #!/bin/bash
 
-if [ ! -f "$1" ] || [ "$2" == "" ]; then
+if [ "$1" == "" ] || [ "$2" == "" ]; then
 	echo "mupload <file> <name>"
+	exit 1
+elif [ ! -f "$1" ]; then
+	echo "File $1 doesn't exist."
 	exit 1
 fi
 
 URL="http://d.mort.coffee/$2"
 echo $URL | xsel -ib
 scp "$1" "martin@serve.mort.coffee:/var/www/mort.coffee/d/public/$2"
-echo $URL
+if [ $? -eq 0 ]; then
+	echo $URL
+else
+	exit 1
+fi
