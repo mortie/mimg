@@ -10,7 +10,7 @@ scrot "$DIR/pic.png"
 
 mupload "$DIR/pic.png" "img/${1}.png"
 if [ $? -eq 0 ]; then
-	msound camera-shutter.mp3
+	msound camera-shutter
 else
 	merror "mshot" "Couldn't upload image file."
 	echo "An error occurred." 1>&2
