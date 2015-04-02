@@ -260,7 +260,11 @@ statusbar = {
 };
 settings = {
   "fe-text" = { actlist_sort = "refnum"; };
-  "fe-common/core" = { theme = "envy"; };
+  "fe-common/core" = {
+    theme = "envy";
+    bell_beeps = "yes";
+    beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT";
+  };
   core = {
     real_name = "Martin D. N.";
     user_name = "martin";
