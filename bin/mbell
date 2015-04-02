@@ -1,0 +1,22 @@
+#!/bin/bash
+if [[ $1 ]]; then
+	name=$1
+else
+	name="<unknown>"
+fi
+code=1
+
+while true; do
+	read -r -d "" -t 10;
+	code=$?
+
+	if [[ $code > 128 ]]; then
+		continue
+	fi
+
+	if [[ $code != 0 ]]; then
+		break;
+	fi
+
+	mnotify "Bell from $name"
+done;
