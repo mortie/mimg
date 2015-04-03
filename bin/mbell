@@ -1,24 +1,28 @@
 #!/bin/bash
 
-if [[ $1 ]]; then
-	name=$1
-else
-	name="<unknown>"
-fi
+# Written by Francis Wharf, https://github.com/xeom
 
-code=1
+# Default
+name="<unknown>"
+
+# If there is an argument, use it as program name
+[[ $1 ]] && name=$1
 
 while true; do
-	read -r -d "" -t 10;
+	# Read, ignoring escapes, until the first bell char if
+	# no bell is received in 10 seconds, the script loops
+	read -r -d $(printf "\007") -t 10;
 	code=$?
 
+	# If the code is a timeout error, continue
 	if [[ $code > 128 ]]; then
 		continue
+
+	# If read returned eof, suicide
+	elif [[ $code != 0 ]]; then
+		exit 0
 	fi
 
-	if [[ $code != 0 ]]; then
-		break;
-	fi
-
-	mnotify "$name" "Bell from $name"
+	# If read returned success, notify user of bell
+	mnotify "$name" "Bell received"
 done;
