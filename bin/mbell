@@ -20,5 +20,5 @@ while true; do
 		break;
 	fi
 
-	mnotify "Bell from $name"
+	mnotify "$name" "Bell from $name"
 done;
