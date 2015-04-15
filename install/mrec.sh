@@ -1,5 +1,6 @@
 res=$(xdpyinfo | awk '/dimensions:/ { print $2; exit }')
 
+rm "$HOME/.mrecrc"
 echo "X=0" >> "$HOME/.mrecrc"
 echo "Y=0" >> "$HOME/.mrecrc"
 echo "W=$(echo $res | cut -d x -f 1)" >> "$HOME/.mrecrc"
