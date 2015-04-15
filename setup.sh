@@ -152,7 +152,7 @@ rm -fr "$HOME/assets"
 cp -r assets "$HOME/assets"
 echo "Done."
 
-while getopts :m option; do
+while getopts :m:f option; do
 	case "$option" in
 	m)
 		echo "Not switching mod and alt keys."
@@ -172,6 +172,8 @@ install_setup "sxhkd"
 install_setup "i3wm"
 install_setup "mrec"
 
-sudo chsh "$USER" -s /bin/zsh
+if [ "$SHELL" != "/bin/zsh" ]; then
+	sudo chsh "$USER" -s /bin/zsh
+fi
 
 echo "Everything set up!"
