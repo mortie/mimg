@@ -1,5 +1,3 @@
-echo "am install i3 for OS $OS"
-
 case $OS in
 ubuntu)
 	printf "%s\n" \

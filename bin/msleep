@@ -1,0 +1,11 @@
+TYPE=""
+
+if [ "$1" = "" ]; then
+	TYPE="mem"
+elif [ "$1" = "mem" ]; then
+	TYPE="mem"
+elif [ "$1" = "disk" ]; then
+	TYPE="disk"
+fi
+
+echo -n $TYPE > /sys/power/state

@@ -1,4 +1,5 @@
 alias attach="ssh serve.mort.coffee -t \"tmux attach -t $1\""
+alias sudo="sudo env PATH=$PATH"
 
 function irc
 {
