@@ -1,4 +1,4 @@
 #!/bin/bash
 
 msound error
-notify-send -u critical -i ~/assets/img/error.png "$1" "$2"
+mnotificationwrapper "critical" "$HOME/assets/img/error.png" "$1" "$2"

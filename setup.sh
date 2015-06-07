@@ -4,10 +4,18 @@ issues=0
 
 check_command()
 {
-	which "$1" &> /dev/null
-	if [ "$?" -ne 0 ]; then
+	exists=0
+
+	for arg in "$@"; do
+		which "$arg" &> /dev/null
+		if [ "$?" -eq 0 ]; then
+			exists=1
+		fi
+	done
+
+	if [ "$exists" -eq 0 ]; then
 		issues=1
-		echo "Missing command: $1"
+		echo "Missing command: $@"
 	fi
 }
 
@@ -28,12 +36,12 @@ check_command "compton"
 check_command "amixer"
 check_command "xbacklight"
 check_command "feh"
-check_command "xsel"
+check_command "xsel" "pbcopy"
 check_command "recordmydesktop"
 check_command "mplayer"
-check_command "scrot"
-check_command "notify-send"
-check_command "dunst"
+check_command "scrot" "screencapture"
+check_command "notify-send" "terminal-notifier"
+check_command "dunst" "terminal-notifier"
 check_command "curl"
 check_command "sudo"
 

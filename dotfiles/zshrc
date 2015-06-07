@@ -2,7 +2,11 @@
 export LC_ALL="en_US.UTF-8"
 
 # neat aliases
-alias ls="ls --color=always"
+if [ $(uname) = "Linux" ]; then
+	alias ls="ls --color=always"
+else
+	alias ls="ls -G"
+fi
 alias ll="ls -l"
 alias la="ls -a"
 source ~/.zshalias

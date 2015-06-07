@@ -1,0 +1,11 @@
+#/bin/bash
+
+OS=$(uname)
+
+content=$(cat -)
+
+if [ "$OS" -eq "Darwin" ]; then
+	echo -n "$content" | pbcopy
+else
+	echo -n "$content" | xsel -ib
+fi

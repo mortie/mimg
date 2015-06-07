@@ -1,5 +1,7 @@
 #!/bin/bash
 
+OS=$(uname)
+
 if [ "$1" == "" ] || [ "$2" == "" ]; then
 	echo "mupload <file> <name>"
 	exit 1
@@ -9,10 +11,12 @@ elif [ ! -f "$1" ]; then
 fi
 
 URL="http://d.mort.coffee/$2"
-echo $URL | xsel -ib
+
+echo "$URL" | mclip
+
 scp "$1" "martin@serve.mort.coffee:/var/www/mort.coffee/d/public/content/$2"
 if [ $? -eq 0 ]; then
-	echo $URL
+	echo "$URL"
 else
 	exit 1
 fi

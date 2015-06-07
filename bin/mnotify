@@ -1,4 +1,4 @@
 #!/bin/bash
 
 msound ding
-notify-send -u low -i ~/assets/img/info.png "$1" "$2"
+mnotificationwrapper "low" "$HOME/assets/img/info.png" "$1" "$2"
