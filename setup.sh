@@ -44,6 +44,7 @@ check_command "notify-send" "terminal-notifier"
 check_command "dunst" "terminal-notifier"
 check_command "curl"
 check_command "sudo"
+check_command "mutt"
 
 if [ $issues -ne 0 ]; then
 	echo "Some things are missing. Continue? (y/n)"

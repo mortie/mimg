@@ -10,3 +10,6 @@ xmodmap .Xmodmaprc
 sxhkd -c ~/.sxhkdrc &
 
 sh ~/.startup.sh
+
+synclient RTCornerButton=0
+synclient VertEdgeScroll=0
