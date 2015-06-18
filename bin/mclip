@@ -4,7 +4,7 @@ OS=$(uname)
 
 content=$(cat -)
 
-if [ "$OS" -eq "Darwin" ]; then
+if [ "$OS" = "Darwin" ]; then
 	echo -n "$content" | pbcopy
 else
 	echo -n "$content" | xsel -ib
