@@ -2,7 +2,7 @@ set my_name = "Martin Dørum Nygaard"
 set imap_user = "martid0311@gmail.com"
 
 ## Get the password from a file
-source ~/.muttpass
+source ~/.mutt/pass
 
 set folder = "imaps://imap.gmail.com/"
 set spoolfile = +INBOX
@@ -18,6 +18,10 @@ set from = "martid0311@gmail.com"
 set use_from = yes
 set smtp_url = smtps://$imap_user:$imap_pass@smtp.gmail.com
 set ssl_force_tls = yes
+
+# Handle HTML email
+auto_view text/html
+alternative_order text/plain text/enriched text/html
 
 ## Editor
 set editor = "vim"
