@@ -19,7 +19,6 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Bind keys
-set mouse=a
 map <ScrollWheelUp> <C-Y><C-Y><C-Y>
 map <ScrollWheelDown> <C-E><C-E><C-E>
 map <C-n> :NERDTreeToggle<CR>
