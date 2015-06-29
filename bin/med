@@ -3,5 +3,5 @@
 TMP_FILE=$(mktemp /tmp/med.XXXXXXXXXX)
 
 cat - > "$TMP_FILE"
-vim "$TMP_FILE" < /dev/tty > /dev/tty
+vim "$TMP_FILE"
 cat "$TMP_FILE" > /dev/stdout
