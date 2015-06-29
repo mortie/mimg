@@ -2,7 +2,7 @@ set my_name = "Martin Dørum Nygaard"
 set imap_user = "martid0311@gmail.com"
 
 ## Get the password from a file
-source ~/.mutt/pass
+source ~/.muttpass
 
 set folder = "imaps://imap.gmail.com/"
 set spoolfile = +INBOX
