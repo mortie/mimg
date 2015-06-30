@@ -32,8 +32,8 @@ set $t-ur #CF6A4C
 
 # class                 border  background  text  indicator
 client.focused          $border $background $text #31392F
-client.focused_inactive $bor-in $back-inact $t-in #676767
-client.unfocused        $bor-in $back-inact $t-in #515151
+client.focused_inactive $bor-in $background $t-in #676767
+client.unfocused        $bor-in $background $t-in #515151
 client.urgent           $bor-ur $back-urgen $t-ur #900000
 
 # font for window titles. ISO 10646 = Unicode
@@ -181,6 +181,7 @@ bar {
 
 	colors {
 		focused_workspace  $border $background $text
+		active_workspace   $border $background $t-in
 		inactive_workspace $border $background $t-in
 		statusline #dddddd
 		separator #eeeeee
