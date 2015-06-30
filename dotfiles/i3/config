@@ -20,7 +20,7 @@ for_window [title="^float$"] floating enable
 
 #colors
 #solarized theme, weird
-set $background #1C1C1C
+set $background #000000
 set $back-inact #1C1C1C
 set $back-urgen #B85335
 set $border #1C1C1C
@@ -178,6 +178,13 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
 	status_command i3status
+
+	colors {
+		focused_workspace  $border $background $text
+		inactive_workspace $border $background $t-in
+		statusline #dddddd
+		separator #eeeeee
+	}
 }
 
 exec sh ~/.wmrc
