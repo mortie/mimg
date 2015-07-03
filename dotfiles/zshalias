@@ -4,5 +4,5 @@ alias sudo="sudo env PATH=$PATH"
 
 function irc
 {
-	attach $1 | tee >(mbell "irc $1")
+	attach irc$1 | tee >(mbell "irc $1")
 }

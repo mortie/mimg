@@ -46,6 +46,7 @@ check_command "curl"
 check_command "sudo"
 check_command "mutt"
 check_command "w3m"
+check_command "clisp"
 
 if [ $issues -ne 0 ]; then
 	echo "Some things are missing. Continue? (y/n)"

@@ -6,7 +6,7 @@ if [ "$1" = "" ]; then
 	echo "mshot <name>"
 fi
 
-sleep 0.1
+sleep 0.2
 DIR=$(mktemp -d /tmp/mupload.XXXXXXXXXX)
 
 if [ "$OS" = "Darwin" ]; then
