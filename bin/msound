@@ -2,4 +2,4 @@
 
 OS=$(uname)
 
-mplayer -nogui "$HOME/assets/sounds/${1}.mp3" </dev/null >/dev/null 2>&1 &
+mplayer "$HOME/assets/sounds/${1}.mp3" </dev/null >/dev/null 2>&1 &
