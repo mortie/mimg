@@ -1,13 +1,14 @@
 #!/bin/bash
 
 OS=$(uname)
+ECODE=0
 
 if [ "$1" = "" ]; then
 	echo "mshot <name>"
 fi
 
 sleep 0.2
-DIR=$(mktemp -d /tmp/mupload.XXXXXXXXXX)
+DIR=$(mktemp -d /tmp/mshot.XXXXXXXXXX)
 
 if [ "$OS" = "Darwin" ]; then
 	screencapture "$DIR/pic.png"
@@ -21,5 +22,8 @@ if [ $? -eq 0 ]; then
 else
 	merror "mshot" "Couldn't upload image file."
 	echo "An error occurred." 1>&2
-	exit 1
+	ECODE=1
 fi
+
+rm -r "$DIR"
+exit "$ECODE"
