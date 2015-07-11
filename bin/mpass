@@ -1,0 +1,63 @@
+#!/bin/bash
+
+TMP_IN=$(mktemp /tmp/mpass.XXXXXXXXXX)
+TMP_OUT=$(mktemp /tmp/mpass.XXXXXXXXXX)
+
+function cleanup
+{
+	rm "$TMP_IN" 2>&1 > /dev/null
+	rm "$TMP_OUT" 2>&1 > /dev/null
+}
+
+# Create password: mpass create <name> [chars]
+if [ "$1" = "create" ]; then
+	if [ "$2" = "" ]; then
+		echo "Usage: mpass create <name> [chars]"
+		cleanup
+		exit 1
+	fi
+
+	if [ "$3" = "" ]; then
+		nchars="32"
+	else
+		nchars="$3"
+	fi
+
+	chars=$(tr -dc A-Za-z0-9_ < /dev/urandom | head -c "$nchars")
+
+	echo "$chars" > "$TMP_IN"
+	echo "$chars" | mclip
+
+	openssl enc -aes-256-cbc -salt -a -in "$TMP_IN" -out "$TMP_OUT" -pass "file:$HOME/.mpassword"
+
+	enc=$(cat "$TMP_OUT")
+
+	passsum=$(shasum -a 512 < ~/.mpassword | cut -d ' ' -f 1)
+
+	code=$(curl -s -X POST -d "$enc" "http://pass.mort.coffee/put/$2/$passsum")
+
+	if [ "$code" != "200" ]; then
+		echo "Error: $code"
+		cleanup
+		exit 1
+	fi
+
+	echo "$chars"
+
+# Get password: mpass get <name>
+elif [ "$1" = "get" ]; then
+	if [ "$2" = "" ]; then
+		echo "Usage: mpass get <name>"
+		cleanup
+		exit 1
+	fi
+
+	curl -s "http://pass.mort.coffee/get/$2" > $TMP_IN
+
+	openssl enc -aes-256-cbc -d -a -in "$TMP_IN" -out "$TMP_OUT" -pass "file:$HOME/.mpassword"
+
+	echo $(cat "$TMP_OUT") | mclip
+	echo $(cat "$TMP_OUT")
+fi
+
+cleanup
