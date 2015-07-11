@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ "$1" = "" ]; then
+	echo "Usage: munzip <file>";
+	exit 1;
+fi
+
+if [ "$1" = *.tar.gz ]; then
+	tar xzf "$1"
+elif [ "$1" = *.tar.bz2 ]; then
+	tar jxf "$1"
+elif [ "$1" = *.zip ]; then
+	unzip "$1"
+else
+	echo "Unknown format."
+	exit 1
+fi
