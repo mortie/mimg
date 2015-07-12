@@ -9,6 +9,8 @@ if [ "$1" = *.tar.gz ]; then
 	tar xzf "$1"
 elif [ "$1" = *.tar.bz2 ]; then
 	tar jxf "$1"
+elif [ "$1" = *.tar.xz ]; then
+	tar xJf "$1"
 elif [ "$1" = *.zip ]; then
 	unzip "$1"
 else
