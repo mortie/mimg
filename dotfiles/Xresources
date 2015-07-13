@@ -1,11 +1,16 @@
-URxvt.termName:           xterm-256color
-URxvt.scrollBar:          off
-URxvt.font:               xft:Monospace:size=9:antialias=false
-URxct.boldFont:           xft:Monospace:size=9:antialias=false
-URxvt*letterSpace:        -0.1:
-URxvt.internalBorder:     1xft:
-URxvt*selectToClipboard:  true
-URxvt*saveLines:          100
+URxvt.font:                 xft:Monospace:size=9:antialias=true:hinting=true
+URxvt.letterSpace:          -1
+ 
+! XFT and Font settings
+Xft.dpi:                    96
+Xft.antialias:              true
+Xft.hinting:                true
+Xft.autohint:               true
+Xft.hintstyle:              hintslight
+Xft.lcdfilter:              lcdlegacy
+Xft.rgba:                   rgb
+
+URxvt.scrollBar: off
 
 URxvt.perl-ext-common:    clipboard
 URxvt.clipboard.copycmd:  mclip

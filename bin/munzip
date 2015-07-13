@@ -6,13 +6,15 @@ if [ "$1" = "" ]; then
 fi
 
 if [ "$1" = *.tar.gz ]; then
-	tar xzf "$1"
+	tar vxzf "$1"
 elif [ "$1" = *.tar.bz2 ]; then
-	tar jxf "$1"
+	tar vjxf "$1"
 elif [ "$1" = *.tar.xz ]; then
-	tar xJf "$1"
+	tar vxJf "$1"
 elif [ "$1" = *.zip ]; then
 	unzip "$1"
+elif [ "$1" = *.tgz ]; then
+	tar vxzf "$1"
 else
 	echo "Unknown format."
 	exit 1
