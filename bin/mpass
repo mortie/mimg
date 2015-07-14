@@ -45,7 +45,7 @@ if [ "$1" = "create" ]; then
 		nchars="$3"
 	fi
 
-	chars=$(tr -dc A-Za-z0-9_ < /dev/urandom | head -c "$nchars")
+	chars=$(LC_ALL=C tr -dc A-Za-z0-9_ < /dev/urandom | head -c "$nchars")
 
 	echo "$chars" > "$TMP_IN"
 	echo "$chars" | mclip
