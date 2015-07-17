@@ -60,7 +60,7 @@ if [ "$1" = "create" ]; then
 	code=$(curl -s -X POST -d "$enc" "http://pass.mort.coffee/put/$2/$passsum")
 	tryerr "$code"
 
-	echo "$chars"
+	echo -n "$chars" | mclip
 
 	mnotify "Password created" "$2"
 
@@ -85,7 +85,6 @@ elif [ "$1" = "get" ]; then
 	chars=$(cat "$TMP_OUT")
 
 	echo -n "$chars" | mclip
-	echo "$chars"
 
 	mnotify "Password received" "$2"
 fi
