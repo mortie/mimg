@@ -2,6 +2,7 @@ var http = require("http");
 var https = require("https");
 var fs = require("fs");
 var Context = require("./lib/context.js");
+var Db = require("./lib/db.js");
 
 var conf = JSON.parse(fs.readFileSync("conf.json"));
 
@@ -11,7 +12,7 @@ var endpoints = {
 	"/viewer": "viewer.node.js"
 }
 
-//Prepare files
+//Prepare endpoints
 var errs = false;
 Object.keys(endpoints).forEach(function(i) {
 	try {
@@ -46,6 +47,7 @@ fs.readdirSync("templates").forEach(function(f) {
 	templates[f.replace(/\.html$/, "")] = fs.readFileSync("templates/"+f, "utf8");
 });
 
+//Function to run on each request
 function onRequest(req, res) {
 	console.log("Request for "+req.url);
 
@@ -65,12 +67,18 @@ function onRequest(req, res) {
 	}
 }
 
-var server;
-if (conf.use_https) {
-	server = https.createServer(conf.https, onRequest);
-} else {
-	server = http.createServer(onRequest);
-}
-server.listen(conf.port);
+//Initiate a postgresql client
+var db = new Db(conf.db, function(err) {
+	if (err) throw err;
 
-console.log("Listening on port "+conf.port+".");
+	//Create HTTP or HTTPS server
+	var server;
+	if (conf.use_https) {
+		server = https.createServer(conf.https, onRequest);
+	} else {
+		server = http.createServer(onRequest);
+	}
+	server.listen(conf.port);
+
+	console.log("Listening on port "+conf.port+".");
+});
