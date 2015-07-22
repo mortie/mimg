@@ -8,5 +8,8 @@
     "start": "node index.js"
   },
   "author": "Martin Dørum Nygaard",
-  "license": "GPLv2"
+  "license": "GPLv2",
+  "dependencies": {
+    "pg": "^4.4.0"
+  }
 }

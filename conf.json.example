@@ -1,0 +1,15 @@
+{
+	"webroot": "web",
+	"port": 8081,
+	"db": {
+		"host": "localhost",
+		"user": "dbuser",
+		"pass": "dbpass",
+		"database": "mimg"
+	},
+	"use_https": false,
+	"https": {
+		"key": "",
+		"cert": ""
+	}
+}

@@ -1,10 +1,11 @@
 var http = require("http");
+var https = require("https");
 var fs = require("fs");
-var Api = require("./api.js");
+var Context = require("./lib/context.js");
 
 var conf = JSON.parse(fs.readFileSync("conf.json"));
 
-var files = {
+var endpoints = {
 	"/": "index.html",
 	"/404": "404.html",
 	"/viewer": "viewer.node.js"
@@ -12,19 +13,32 @@ var files = {
 
 //Prepare files
 var errs = false;
-Object.keys(files).forEach(function(i) {
+Object.keys(endpoints).forEach(function(i) {
 	try {
-		if (/\.node\.js$/.test(files[i]))
-			files[i] = require("./"+conf.webroot+"/"+files[i]);
-		else
-			files[i] = fs.readFileSync(conf.webroot+"/"+files[i], "utf8");
+
+		//The endpoint is a function if the file ends with .node.js
+		if (/\.node\.js$/.test(endpoints[i])) {
+			endpoints[i] = require("./"+conf.webroot+"/"+endpoints[i]);
+
+		//If it doesn't end with .node.js, it's a regular text file and will
+		//just be served as is
+		} else {
+			endpoints[i] = fs.readFileSync(conf.webroot+"/"+endpoints[i], "utf8");
+		}
+
+	//Errors will usually be because an endpoint doesn't exist
 	} catch (err) {
-		console.log(err.toString());
-		errs = true;
+		if (err.code == "ENOENT") {
+			console.log(err.toString());
+			errs = true;
+		} else {
+			throw err;
+		}
 	}
 });
-if (errs)
-	process.exit();
+
+//No need to proceed if some endpoints don't exist
+if (errs) process.exit();
 
 //Prepare all templates
 var templates = {};
@@ -35,20 +49,28 @@ fs.readdirSync("templates").forEach(function(f) {
 function onRequest(req, res) {
 	console.log("Request for "+req.url);
 
-	var file = files[req.url];
+	var ep = endpoints[req.url];
 
-	if (!file) {
-		file = files["/404"];
+	//If the file doesn't exist, we 404.
+	if (!ep) {
+		ep = endpoints["/404"];
 		res.writeHead(404);
 	}
 
-	if (typeof file == "function")
-		file(new Api(req, res, templates, conf));
-	else
-		res.end(file);
+	//Execute if it's a .node.js, or just respond with the contents of the file
+	if (typeof ep == "function") {
+		ep(new Context(req, res, templates, conf));
+	} else {
+		res.end(ep);
+	}
 }
 
-var server = http.createServer(onRequest);
+var server;
+if (conf.use_https) {
+	server = https.createServer(conf.https, onRequest);
+} else {
+	server = http.createServer(onRequest);
+}
 server.listen(conf.port);
 
 console.log("Listening on port "+conf.port+".");
