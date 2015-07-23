@@ -7,9 +7,21 @@ var Db = require("./lib/db.js");
 var conf = JSON.parse(fs.readFileSync("conf.json"));
 
 var endpoints = {
-	"/": "index.html",
+
+	//General files
+	"/favicon.ico": "favicon.ico",
+	"/bootstrap.css": "bootstrap.css",
 	"/404": "404.html",
-	"/viewer": "viewer.node.js"
+
+	//Index files
+	"/": "index/index.node.js",
+	"/index/script.js": "index/script.js",
+	"/index/style.css": "index/style.css",
+
+	//Viewer files
+	"/viewer": "viewer/index.node.js",
+	"/viewer/script.js": "viewer/script.js",
+	"/viewer/style.css": "viewer/style.css"
 }
 
 //Prepare endpoints
@@ -24,7 +36,7 @@ Object.keys(endpoints).forEach(function(i) {
 		//If it doesn't end with .node.js, it's a regular text file and will
 		//just be served as is
 		} else {
-			endpoints[i] = fs.readFileSync(conf.webroot+"/"+endpoints[i], "utf8");
+			endpoints[i] = fs.readFileSync(conf.webroot+"/"+endpoints[i]);
 		}
 
 	//Errors will usually be because an endpoint doesn't exist
@@ -47,6 +59,12 @@ fs.readdirSync("templates").forEach(function(f) {
 	templates[f.replace(/\.html$/, "")] = fs.readFileSync("templates/"+f, "utf8");
 });
 
+//Prepare all views
+var views = {};
+fs.readdirSync("views").forEach(function(f) {
+	views[f.replace(/\.html$/, "")] = fs.readFileSync("views/"+f, "utf8");
+});
+
 //Function to run on each request
 function onRequest(req, res) {
 	console.log("Request for "+req.url);
@@ -61,7 +79,13 @@ function onRequest(req, res) {
 
 	//Execute if it's a .node.js, or just respond with the contents of the file
 	if (typeof ep == "function") {
-		ep(new Context(req, res, templates, conf));
+		ep(new Context({
+			req: req,
+			res: res,
+			templates: templates,
+			views: views,
+			conf: conf
+		}));
 	} else {
 		res.end(ep);
 	}
