@@ -1,0 +1,24 @@
+#!/bin/bash
+
+DIR="."
+CMD="$1"
+
+$CMD &
+PID=$!
+
+OLD=$(ls -R --full-time "$DIR")
+
+while :; do
+	NEW=$(ls -R --full-time "$DIR")
+	if [ "$OLD" != "$NEW" ]; then
+		OLD=$(ls -R --full-time "$DIR")
+
+		kill -9 "$PID" > /dev/null
+		[ $? != "0" ] && echo "Process $PID doesn't exist."
+
+		$CMD &
+		PID=$!
+	fi
+
+	sleep 1
+done
