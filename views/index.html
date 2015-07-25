@@ -6,10 +6,17 @@
 	</head>
 	<body>
 		{{global}}
+
 		<div id="uploader" class="container">
-			<input type="file" id="uploader-input" class="hidden" multiple>
-			<button class="btn btn-default" onclick="$('#uploader-input').click()">Select Files</button>
-			<button class="btn btn-default" id="uploader-upload">Upload</button>
+			<input type="file" accept="image/*" id="uploader-input" class="hidden" multiple>
+
+			<button class="btn btn-default" onclick="$('#uploader-input').click()">
+				Select Files
+			</button>
+			<button class="btn btn-default" id="uploader-upload">
+				Upload
+			</button>
+
 			<ul class="list-group" id="uploader-list"></ul>
 		</div>
 
