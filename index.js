@@ -10,7 +10,8 @@ var endpoints = {
 
 	//General files
 	"/favicon.ico": "favicon.ico",
-	"/bootstrap.css": "bootstrap.css",
+	"/global.css": "global.css",
+	"/global.js": "global.js",
 	"/404": "404.html",
 
 	//Index files

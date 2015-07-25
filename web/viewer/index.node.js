@@ -1,5 +1,8 @@
 module.exports = function(ctx) {
 	ctx.end(ctx.view("viewer", {
-		header: ctx.template("header")
+		head: ctx.template("head"),
+		global: ctx.template("global", {
+			profile: ctx.template("navbar-profile-login")
+		})
 	}));
 }

@@ -1,0 +1,60 @@
+.navbar .navbar-nav {
+	margin-bottom: 0px;
+}
+
+#login-dropdown .dropdown-menu {
+	padding: 10px;
+}
+
+#login-dropdown label,
+#login-dropdown input {
+	width: 100%;
+}
+
+#login-dropdown .submit-container {
+	text-align: right;
+}
+
+#notify-box {
+	transition: max-height 0.2s;
+	max-height: 0px;
+
+	background-color: #F8F8F8;
+	border: 1px solid #E7E7E7;
+
+	overflow: hidden;
+	line-height: 48px;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+}
+
+#notify-box .close {
+	height: 48px;
+	line-height: 48px;
+	float: right;
+	padding: 0px;
+
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	margin: auto;
+	right: 12px;
+}
+#notify-box .title,
+#notify-box .body {
+	line-height: 48px;
+	margin-left: 12px;
+	width: calc(100% - 42px);
+}
+#notify-box .title {
+	font-weight: bold;
+}
+
+#notify-box.active {
+	max-height: 48px;
+}
+#notify-box.active:hover {
+	transition: max-height 0.6s;
+	max-height: 200px;
+}
