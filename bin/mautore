@@ -16,7 +16,7 @@ while :; do
 		kill -9 "$PID" > /dev/null
 		[ $? != "0" ] && echo "Process $PID doesn't exist."
 
-		$CMD &
+		echo $CMD | sh &
 		PID=$!
 
 		# Print bell character

@@ -16,5 +16,5 @@ while true; do
 	fi
 
 	# If read returned success, run user's command
-	$1
+	echo $1 | sh
 done;
