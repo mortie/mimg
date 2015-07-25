@@ -1,0 +1,20 @@
+#!/bin/bash
+
+while true; do
+	# Read, ignoring escapes, until the first bell char if
+	# no bell is received in 10 seconds, the script loops
+	read -r -d $(printf "\007") -t 10;
+	code=$?
+
+	# If the code is a timeout error, continue
+	if [[ $code > 128 ]]; then
+		continue
+
+	# If read returned eof, suicide
+	elif [[ $code != 0 ]]; then
+		exit 0
+	fi
+
+	# If read returned success, run user's command
+	$1
+done;
