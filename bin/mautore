@@ -18,6 +18,9 @@ while :; do
 
 		$CMD &
 		PID=$!
+
+		# Print bell character
+		echo -e "\a"
 	fi
 
 	sleep 1
