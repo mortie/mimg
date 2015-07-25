@@ -9,7 +9,7 @@
 			output.push(
 				'<li class="file list-group-item" data-index='+i+'>'+
 					'<span class="name">'+util.htmlEntities(f.name)+'</span>'+
-					'<button class="btn delete" onclick="uploaderDelete(this.parentNode)">X</button>'+
+					'<button class="btn btn-default delete" onclick="uploaderDelete(this.parentNode)">X</button>'+
 				'</li>'
 			);
 		});
