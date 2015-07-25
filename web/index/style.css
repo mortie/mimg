@@ -1,0 +1,11 @@
+#uploader-list .file {
+	text-align: right !important;
+}
+#uploader-list .file .name {
+	float: left;
+	margin-top: 6px;
+}
+
+#uploader-upload {
+	float: right;
+}

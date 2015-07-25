@@ -1,6 +1,7 @@
 var http = require("http");
 var https = require("https");
 var fs = require("fs");
+var loader = require("./lib/loader.js");
 var Context = require("./lib/context.js");
 var Db = require("./lib/db.js");
 
@@ -25,56 +26,17 @@ var endpoints = {
 	"/viewer/style.css": "viewer/style.css"
 }
 
-//Prepare endpoints
-var errs = false;
-Object.keys(endpoints).forEach(function(i) {
-	try {
-
-		//The endpoint is a function if the file ends with .node.js
-		if (/\.node\.js$/.test(endpoints[i])) {
-			endpoints[i] = require("./"+conf.webroot+"/"+endpoints[i]);
-
-		//If it doesn't end with .node.js, it's a regular text file and will
-		//just be served as is
-		} else {
-			endpoints[i] = fs.readFileSync(conf.webroot+"/"+endpoints[i]);
-		}
-
-	//Errors will usually be because an endpoint doesn't exist
-	} catch (err) {
-		if (err.code == "ENOENT") {
-			console.log(err.toString());
-			errs = true;
-		} else {
-			throw err;
-		}
-	}
-});
-
-//No need to proceed if some endpoints don't exist
-if (errs) process.exit();
-
-//Prepare all templates
-var templates = {};
-fs.readdirSync("templates").forEach(function(f) {
-	templates[f.replace(/\.html$/, "")] = fs.readFileSync("templates/"+f, "utf8");
-});
-
-//Prepare all views
-var views = {};
-fs.readdirSync("views").forEach(function(f) {
-	views[f.replace(/\.html$/, "")] = fs.readFileSync("views/"+f, "utf8");
-});
+var loaded = loader.load(endpoints, conf);
 
 //Function to run on each request
 function onRequest(req, res) {
 	console.log("Request for "+req.url);
 
-	var ep = endpoints[req.url];
+	var ep = loaded.endpoints[req.url];
 
 	//If the file doesn't exist, we 404.
 	if (!ep) {
-		ep = endpoints["/404"];
+		ep = loaded.endpoints["/404"];
 		res.writeHead(404);
 	}
 
@@ -83,8 +45,8 @@ function onRequest(req, res) {
 		ep(new Context({
 			req: req,
 			res: res,
-			templates: templates,
-			views: views,
+			templates: loaded.templates,
+			views: loaded.views,
 			conf: conf
 		}));
 	} else {

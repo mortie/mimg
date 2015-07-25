@@ -2,9 +2,17 @@
 <html>
 	<head>
 		{{head}}
+		<link rel="stylesheet" href="/index/style.css">
 	</head>
 	<body>
 		{{global}}
+		<div id="uploader" class="container">
+			<input type="file" id="uploader-input" class="hidden" multiple>
+			<button class="btn btn-default" onclick="$('#uploader-input').click()">Select Files</button>
+			<button class="btn btn-default" id="uploader-upload">Upload</button>
+			<ul class="list-group" id="uploader-list"></ul>
+		</div>
+
 		<script src="/index/script.js"></script>
 	</body>
 </html>

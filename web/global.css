@@ -1,3 +1,7 @@
+.hidden {
+	display: none;
+}
+
 .navbar .navbar-nav {
 	margin-bottom: 0px;
 }
