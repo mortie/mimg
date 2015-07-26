@@ -1,3 +1,5 @@
 conf.json
 node_modules
 npm-debug.log
+imgs
+!imgs/.placeholder

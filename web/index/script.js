@@ -24,7 +24,6 @@
 
 		//Enable upload button
 		$("#uploader-upload").removeAttr("disabled")
-		console.log("making uploader button not disabled");
 
 		var inputFiles = evt.target.files;
 
@@ -57,7 +56,6 @@
 
 		//First, disable all buttons
 		$("#uploader button.btn").prop("disabled", true);
-		console.log("making buttons disabled");
 
 		var elems = [];
 
@@ -66,26 +64,53 @@
 			elems[elem.data("index")] = elem;
 		});
 
-		files.forEach(function(f, i) {
-			var progressBar = elems[i].children(".progress-bar");
+		//First, create a collection
+		util.api("collection_create", {
+			name: "New Collection"
+		}, function(err, res) {
+			if (err) return util.error(err);
 
-			function getXhr(xhr) {
-				xhr.upload.addEventListener("progress", function(evt) {
-					if (!evt.lengthComputable)
-						return;
+			var collectionId = res.id;
 
-					var percent = (evt.loaded / evt.total) * 100;
+			//Go to collection once files are uploaded
+			var a = util.async(files.length, function() {
+				setTimeout(function() {
+					location.href = "/view?"+collectionId;
+				}, 1000);
+			});
 
-					progressBar.css({width: percent+"%"});
-				}, false);
-			}
+			//Loop through files, uploading them
+			files.forEach(function(f, i) {
+				var progressBar = elems[i].children(".progress-bar");
 
-			var ajax = util.api("upload", {
-				name: f.name,
-				data: f
-			}, function(err, res) {
-				console.log(res);
-			}, getXhr);
+				//Handle progress bars
+				function getXhr(xhr) {
+					xhr.upload.addEventListener("progress", function(evt) {
+						if (!evt.lengthComputable)
+							return;
+
+						var percent = (evt.loaded / evt.total) * 100;
+
+						progressBar.css({width: percent+"%"});
+					}, false);
+				}
+
+				//Get file extension
+				var ext = f.name.split(".");
+				ext = ext[ext.length - 1];
+
+				util.api("image_create", {
+					name: f.name,
+					description: "An image.",
+					extension: ext,
+					collectionId: collectionId,
+					file: f
+				}, function(err, res) {
+					if (err) return util.error(err);
+
+					a();
+				}, getXhr);
+			});
 		});
 	});
 })();

@@ -1,0 +1,18 @@
+#viewer {
+	max-width: 400px;
+}
+
+#viewer .image img {
+	width: 100%;
+}
+
+#viewer .image .url {
+	width: 100%;
+}
+
+#viewer .image {
+	margin-bottom: 20px;
+	border: 1px solid #CCC;
+	border-radius: 4px;
+	padding: 6px;
+}

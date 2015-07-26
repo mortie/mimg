@@ -2,8 +2,8 @@ var http = require("http");
 var https = require("https");
 var fs = require("fs");
 var loader = require("./lib/loader.js");
+var pg = require("pg");
 var Context = require("./lib/context.js");
-var Db = require("./lib/db.js");
 
 var conf = JSON.parse(fs.readFileSync("conf.json"));
 
@@ -21,21 +21,26 @@ var endpoints = {
 	"/index/style.css": "index/style.css",
 
 	//Viewer files
-	"/viewer": "viewer/index.node.js",
-	"/viewer/script.js": "viewer/script.js",
-	"/viewer/style.css": "viewer/style.css",
+	"/view": "view/index.node.js",
+	"/view/style.css": "view/style.css",
+
+	//Plain image files
+	"/i": "i/index.node.js",
 
 	//API files
-	"/api/upload": "api/upload.node.js"
+	"/api/image_create": "api/image_create.node.js",
+	"/api/collection_create": "api/collection_create.node.js"
 }
 
 var loaded = loader.load(endpoints, conf);
+
+var db = new pg.Client(conf.db);
 
 //Function to run on each request
 function onRequest(req, res) {
 	console.log("Request for "+req.url);
 
-	var ep = loaded.endpoints[req.url];
+	var ep = loaded.endpoints[req.url.split("?")[0]];
 
 	//If the file doesn't exist, we 404.
 	if (!ep) {
@@ -50,6 +55,7 @@ function onRequest(req, res) {
 			res: res,
 			templates: loaded.templates,
 			views: loaded.views,
+			db: db,
 			conf: conf
 		}));
 	} else {
@@ -58,9 +64,8 @@ function onRequest(req, res) {
 }
 
 //Initiate a postgresql client
-var db = new Db(conf.db, function(err) {
-	if (err) throw err;
-
+db.connect(function() {
+	
 	//Create HTTP or HTTPS server
 	var server;
 	if (conf.use_https) {

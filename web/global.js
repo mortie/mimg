@@ -24,6 +24,10 @@
 		});
 	});
 
+	util.error = function(body) {
+		util.notify("An error occurred.", body);
+	}
+
 	util.htmlEntities = function(str) {
 		return str.replace(/&/g, "&amp;")
 			.replace(/</g, "&lt;")
@@ -35,7 +39,6 @@
 		var fd = new FormData();
 
 		for (var i in data) {
-			console.log(i);
 			fd.append(i, data[i]);
 		}
 
@@ -54,11 +57,33 @@
 				return xhr;
 			}
 		}).done(function(res) {
+			console.log("response from "+name+":");
+			console.log(res);
 			var obj = JSON.parse(res);
 			if (obj.success)
 				cb(null, obj);
 			else
 				cb(obj.error);
 		});
+	}
+
+	util.async = function(n, cb) {
+		if (typeof n !== "number")
+			throw new Error("Expected number, got "+typeof n);
+
+		if (n < 1)
+			return cb();
+
+		var res = {};
+
+		return function(key, val) {
+			if (key !== undefined)
+				res[key] = val;
+
+			if (n === 1)
+				cb(res);
+			else
+				n -= 1;
+		}
 	}
 })();
