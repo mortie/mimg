@@ -23,7 +23,10 @@ var endpoints = {
 	//Viewer files
 	"/viewer": "viewer/index.node.js",
 	"/viewer/script.js": "viewer/script.js",
-	"/viewer/style.css": "viewer/style.css"
+	"/viewer/style.css": "viewer/style.css",
+
+	//API files
+	"/api/upload": "api/upload.node.js"
 }
 
 var loaded = loader.load(endpoints, conf);

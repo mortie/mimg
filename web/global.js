@@ -30,4 +30,35 @@
 			.replace(/>/g, "&lt;")
 			.replace(/"/g, "&quot");
 	}
+
+	util.api = function(name, data, cb, getXhr) {
+		var fd = new FormData();
+
+		for (var i in data) {
+			console.log(i);
+			fd.append(i, data[i]);
+		}
+
+		return $.ajax({
+			method: "POST",
+			url: "/api/"+name,
+			data: fd,
+			processData: false,
+			contentType: false,
+			xhr: function() {
+				var xhr = new XMLHttpRequest();
+
+				if (getXhr)
+					getXhr(xhr);
+
+				return xhr;
+			}
+		}).done(function(res) {
+			var obj = JSON.parse(res);
+			if (obj.success)
+				cb(null, obj);
+			else
+				cb(obj.error);
+		});
+	}
 })();

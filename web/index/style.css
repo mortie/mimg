@@ -1,11 +1,25 @@
-#uploader-list .file {
-	text-align: right !important;
+#uploader-list .file .delete {
+	float: right;
+	margin-right: -5px;
+}
+#uploader-list .file .thumbnail {
+	display: inline;
+	margin: 0px;
+	margin-right: 10px;
+	height: 100px;
+	image-orientation: from-image;
 }
 #uploader-list .file .name {
-	float: left;
-	margin-top: 6px;
+	display: inline-block;
 }
-
+#uploader-list .file .progress-bar {
+	height: 0px;
+	position: absolute;
+	background: none;
+	border-top: 3px solid green;
+	margin-top: -3px;
+	max-width: calc(100% - 25px);
+}
 #uploader-upload {
 	float: right;
 }
