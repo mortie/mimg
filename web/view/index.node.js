@@ -1,6 +1,9 @@
 module.exports = function(ctx) {
 	var id = parseInt(ctx.req.url.split("?")[1]);
 
+	if (isNaN(id))
+		return ctx.end(ctx.view("404"));
+
 	ctx.db.query(
 		"SELECT id, name, description, extension "+
 		"FROM images "+

@@ -1,6 +1,7 @@
 var http = require("http");
 var https = require("https");
 var fs = require("fs");
+var domain = require("domain");
 var loader = require("./lib/loader.js");
 var pg = require("pg");
 var Context = require("./lib/context.js");
@@ -13,7 +14,7 @@ var endpoints = {
 	"/favicon.ico": "favicon.ico",
 	"/global.css": "global.css",
 	"/global.js": "global.js",
-	"/404": "404.html",
+	"/404": "404.node.js",
 
 	//Index files
 	"/": "index/index.node.js",
@@ -76,4 +77,13 @@ db.connect(function() {
 	server.listen(conf.port);
 
 	console.log("Listening on port "+conf.port+".");
+});
+
+//We don't want to crash even if something throws an uncaught exception.
+var d = domain.create();
+d.on("error", function(err) {
+	console.trace(err);
+});
+process.on("uncaughtException", function(err) {
+	console.trace(err);
 });
