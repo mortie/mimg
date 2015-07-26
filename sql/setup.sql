@@ -3,14 +3,14 @@ CREATE TABLE users (
 	username VARCHAR(64) UNIQUE NOT NULL,
 	pass_hash CHAR(128) NOT NULL,
 	date_created TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT NOW()
-)
+);
 
 CREATE TABLE collections (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(64),
 
 	user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
-)
+);
 
 CREATE TABLE images (
 	id SERIAL PRIMARY KEY,
@@ -19,4 +19,4 @@ CREATE TABLE images (
 	extension VARCHAR(16) NOT NULL,
 
 	collection_id INTEGER NOT NULL REFERENCES collections(id) ON DELETE CASCADE
-)
+);
