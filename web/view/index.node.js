@@ -27,7 +27,6 @@ module.exports = function(ctx) {
 		});
 
 		ctx.end(ctx.view("view", {
-			profile: ctx.template("navbar-profile-login"),
 			images: images
 		}));
 	}

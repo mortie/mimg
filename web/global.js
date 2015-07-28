@@ -16,16 +16,10 @@
 		$("#notify-box").on("mouseenter", function() {
 			clearTimeout(util.notify.timeout);
 		});
-
-		$("#login-form").on("submit", function(evt) {
-			evt.stopPropagation();
-			evt.preventDefault();
-			util.notify("Feature Not Implemented", "This feature is not implemented.");
-		});
 	});
 
 	util.error = function(body) {
-		util.notify("An error occurred.", body);
+		util.notify("Error: "+body);
 	}
 
 	util.htmlEntities = function(str) {
@@ -59,11 +53,10 @@
 		}).done(function(res) {
 			console.log("response from "+name+":");
 			console.log(res);
-			var obj = JSON.parse(res);
-			if (obj.success)
-				cb(null, obj);
+			if (res.success)
+				cb(null, res);
 			else
-				cb(obj.error);
+				cb(res.error);
 		});
 	}
 
@@ -86,4 +79,35 @@
 				n -= 1;
 		}
 	}
+
+	window.display = {};
+
+	window.display.loggedIn = function() {
+		util.api("template?navbar-loggedin", {}, function(err, res) {
+			if (err)
+				return util.error(err);
+
+			$("#navbar-profile-container").html(res.html);
+		});
+	}
+
+	$(document).ready(function() {
+		$("#login-form").on("submit", function(evt) {
+			evt.stopPropagation();
+			evt.preventDefault();
+
+			var username = $("#login-username").val();
+			var password = $("#login-password").val();
+
+			util.api("account_login", {
+				username: username,
+				password: password
+			}, function(err, res) {
+				if (err)
+					util.error(err);
+				else
+					display.loggedIn();
+			});
+		});
+	});
 })();

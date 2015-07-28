@@ -3,15 +3,9 @@ var pg = require("pg");
 
 var conf = JSON.parse(fs.readFileSync("./conf.json"));
 
-var sql = fs.readFileSync("sql/setup.sql", "utf8");
+var sql = fs.readFileSync("scripts/sql/setup.sql", "utf8");
 
-var client = new pg.Client(
-	"postgres://"+
-	conf.db.user+":"+
-	conf.db.pass+"@"+
-	conf.db.host+"/"+
-	conf.db.database
-);
+var client = new pg.Client(conf.db);
 
 client.connect(function(err) {
 	if (err) {

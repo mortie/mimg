@@ -1,6 +1,7 @@
 module.exports = function(ctx) {
 	ctx.getPostData(function(err, data) {
-		if (err) return ctx.fail(err);
+		if (err)
+			return ctx.fail(err);
 
 		ctx.db.query(
 			"INSERT INTO collections (name) "+
@@ -12,7 +13,8 @@ module.exports = function(ctx) {
 	});
 
 	function queryCallback(err, res) {
-		if (err) return ctx.fail(err);
+		if (err)
+			return ctx.fail(err);
 
 		ctx.session.collectionId = res.rows[0].id;
 

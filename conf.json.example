@@ -5,7 +5,7 @@
 		"host": "localhost",
 		"user": "dbuser",
 		"password": "dbpass",
-		"database": "mimg"
+		"database": "spus"
 	},
 	"use_https": false,
 	"https": {
@@ -20,5 +20,6 @@
 	"session_timeout": 1800000,
 	"dir": {
 		"imgs": "imgs"
-	}
+	},
+	"debug": false
 }

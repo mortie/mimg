@@ -18,6 +18,9 @@
 #login-dropdown .submit-container {
 	text-align: right;
 }
+#login-dropdown .submit-container .btn {
+	width: 75px;
+}
 
 #notify-box {
 	transition: max-height 0.2s;
@@ -27,10 +30,10 @@
 	border: 1px solid #E7E7E7;
 
 	overflow: hidden;
-	line-height: 48px;
 	position: fixed;
 	bottom: 0px;
 	width: 100%;
+	box-sizing: content-box;
 }
 
 #notify-box .close {
@@ -47,15 +50,16 @@
 }
 #notify-box .title,
 #notify-box .body {
-	line-height: 48px;
 	margin-left: 12px;
 	width: calc(100% - 42px);
+	margin-top: 16px;
 }
 #notify-box .title {
 	font-weight: bold;
 }
 
 #notify-box.active {
+	min-height: 48px;
 	max-height: 48px;
 }
 #notify-box.active:hover {

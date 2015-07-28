@@ -68,7 +68,8 @@
 		util.api("collection_create", {
 			name: "New Collection"
 		}, function(err, res) {
-			if (err) return util.error(err);
+			if (err)
+				return util.error(err);
 
 			var collectionId = res.id;
 
@@ -106,7 +107,8 @@
 					collectionId: collectionId,
 					file: f
 				}, function(err, res) {
-					if (err) return util.error(err);
+					if (err)
+						return util.error(err);
 
 					a();
 				}, getXhr);

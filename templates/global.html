@@ -2,8 +2,8 @@
 	<div class="navbar-inner">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="/">{{conf#title}}</a>
-			<ul class="nav navbar-nav navbar-right">
-				{{profile}}
+			<ul id="navbar-profile-container" class="nav navbar-nav navbar-right">
+				{{session#loggedIn ? template#navbar-loggedin : template#navbar-login}}
 			</ul>
 		</div>
 	</div>

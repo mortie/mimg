@@ -29,8 +29,11 @@ var endpoints = {
 	"/i": "i/index.node.js",
 
 	//API files
+	"/api/template": "api/template.node.js",
 	"/api/image_create": "api/image_create.node.js",
-	"/api/collection_create": "api/collection_create.node.js"
+	"/api/collection_create": "api/collection_create.node.js",
+	"/api/account_create": "api/account_create.node.js",
+	"/api/account_login": "api/account_login.node.js"
 }
 
 var loaded = loader.load(endpoints, conf);
@@ -41,26 +44,28 @@ var db = new pg.Client(conf.db);
 function onRequest(req, res) {
 	console.log("Request for "+req.url);
 
+	var ctx = new Context({
+		req: req,
+		res: res,
+		templates: loaded.templates,
+		views: loaded.views,
+		db: db,
+		conf: conf
+	});
+
 	var ep = loaded.endpoints[req.url.split("?")[0]];
 
 	//If the file doesn't exist, we 404.
 	if (!ep) {
 		ep = loaded.endpoints["/404"];
-		res.writeHead(404);
+		ctx.setStatus(404);
 	}
 
 	//Execute if it's a .node.js, or just respond with the contents of the file
 	if (typeof ep == "function") {
-		ep(new Context({
-			req: req,
-			res: res,
-			templates: loaded.templates,
-			views: loaded.views,
-			db: db,
-			conf: conf
-		}));
+		ep(ctx);
 	} else {
-		res.end(ep);
+		ctx.end(ep);
 	}
 }
 
@@ -80,10 +85,12 @@ db.connect(function() {
 });
 
 //We don't want to crash even if something throws an uncaught exception.
-var d = domain.create();
-d.on("error", function(err) {
-	console.trace(err);
-});
-process.on("uncaughtException", function(err) {
-	console.trace(err);
-});
+if (!conf.debug) {
+	var d = domain.create();
+	d.on("error", function(err) {
+		console.trace(err);
+	});
+	process.on("uncaughtException", function(err) {
+		console.trace(err);
+	});
+}
