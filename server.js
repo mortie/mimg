@@ -38,7 +38,8 @@ var endpoints = {
 	"/api/image_create": "api/image_create.node.js",
 	"/api/collection_create": "api/collection_create.node.js",
 	"/api/account_create": "api/account_create.node.js",
-	"/api/account_login": "api/account_login.node.js"
+	"/api/account_login": "api/account_login.node.js",
+	"/api/account_logout": "api/account_logout.node.js"
 }
 
 var loaded = loader.load(endpoints, conf);

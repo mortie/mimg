@@ -23,9 +23,7 @@ module.exports = function(ctx) {
 
 		var user = res.rows[0];
 
-		ctx.session.loggedIn = true;
-		ctx.session.userId = user.id;
-		ctx.session.username = user.username;
+		ctx.login(user.username, user.id);
 
 		if (!user)
 			return ctx.fail("Wrong username or password.");
