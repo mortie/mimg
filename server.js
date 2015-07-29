@@ -10,25 +10,30 @@ var conf = JSON.parse(fs.readFileSync("conf.json"));
 
 var endpoints = {
 
-	//General files
+	//General
 	"/favicon.ico": "favicon.ico",
 	"/global.css": "global.css",
 	"/global.js": "global.js",
 	"/404": "404.node.js",
 
-	//Index files
+	//Index
 	"/": "index/index.node.js",
 	"/index/script.js": "index/script.js",
 	"/index/style.css": "index/style.css",
 
-	//Viewer files
+	//Register
+	"/register": "register/index.node.js",
+	"/register/style.css": "register/style.css",
+	"/register/script.js": "register/script.js",
+
+	//Viewer
 	"/view": "view/index.node.js",
 	"/view/style.css": "view/style.css",
 
-	//Plain image files
+	//Plain images
 	"/i": "i/index.node.js",
 
-	//API files
+	//API
 	"/api/template": "api/template.node.js",
 	"/api/image_create": "api/image_create.node.js",
 	"/api/collection_create": "api/collection_create.node.js",

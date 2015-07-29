@@ -15,10 +15,10 @@
 	width: 100%;
 }
 
-#login-dropdown .submit-container {
+form .submit-container {
 	text-align: right;
 }
-#login-dropdown .submit-container .btn {
+form .submit-container .btn {
 	width: 75px;
 }
 
