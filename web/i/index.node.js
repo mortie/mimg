@@ -1,12 +1,9 @@
 var fs = require("fs");
 
 module.exports = function(ctx) {
-	var id;
-	try {
-		id = ctx.req.url.split("?")[1].replace(/\..*/, "");
-	} catch (err) {
+	var id = ctx.query.replace(/\..*/, "");
+	if (!id)
 		return ctx.end(ctx.view("404"));
-	}
 
 	var readStream = fs.createReadStream(ctx.conf.dir.imgs+"/"+id);
 	readStream.pipe(ctx.res);

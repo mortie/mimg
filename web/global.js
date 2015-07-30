@@ -1,4 +1,19 @@
 (function() {
+	var months = [
+		"January",
+		"February",
+		"March",
+		"April",
+		"May",
+		"June",
+		"July",
+		"August",
+		"September",
+		"October",
+		"November",
+		"December"
+	]
+
 	window.util = {};
 
 	util.notify = function notify(title, body) {
@@ -69,8 +84,8 @@
 
 		var res = {};
 
-		return function(key, val) {
-			if (key !== undefined)
+		return function(key, val, err) {
+			if (key)
 				res[key] = val;
 
 			if (n === 1)
@@ -78,6 +93,25 @@
 			else
 				n -= 1;
 		}
+	}
+
+	util.pad = function(str, length, padChar) {
+		var missing = (length - str.length) + 1;
+
+		if (missing <= 0)
+			return str;
+
+		return new Array(missing).join(padChar) + str;
+	}
+
+	util.dateToString = function(date) {
+		var day = util.pad(date.getDate().toString(), 2, "0");
+		var month = months[date.getMonth()];
+
+		return day+". of "+month+" "+
+			date.getFullYear()+", "+
+			util.pad(date.getHours().toString(), 2, "0")+":"+
+			util.pad(date.getMinutes().toString(), 2, "0");
 	}
 
 	window.display = {};
@@ -88,6 +122,8 @@
 				return util.error(err);
 
 			$("#navbar-profile-container").html(res.html);
+
+			util.notify("Logged In", "You are now logged in.");
 		});
 	}
 

@@ -23,10 +23,10 @@ module.exports = function(ctx) {
 
 		var user = res.rows[0];
 
-		ctx.login(user.username, user.id);
-
 		if (!user)
 			return ctx.fail("Wrong username or password.");
+
+		ctx.login(user.username, user.id);
 
 		scrypt.verify(
 			new Buffer(user.pass_hash, "hex"),

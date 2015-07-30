@@ -27,7 +27,7 @@ module.exports = function(ctx) {
 		if (err)
 			return ctx.fail(err);
 
-		ctx.login(ctx.postData.username, res.rows[0].id);
+		ctx.login(ctx.postData.data.username, res.rows[0].id);
 
 		ctx.succeed({
 			id: res.rows[0].id

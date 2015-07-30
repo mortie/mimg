@@ -1,5 +1,5 @@
 module.exports = function(ctx) {
-	var id = parseInt(ctx.req.url.split("?")[1]);
+	var id = parseInt(ctx.query);
 
 	if (isNaN(id))
 		return ctx.end(ctx.view("404"));
@@ -15,6 +15,9 @@ module.exports = function(ctx) {
 	function queryCallback(err, res) {
 		if (err)
 			return ctx.fail(err);
+
+		if (!res.rows[0])
+			return ctx.end(ctx.view("404"));
 
 		var images = "";
 		res.rows.forEach(function(row) {

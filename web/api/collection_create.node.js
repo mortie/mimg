@@ -4,10 +4,10 @@ module.exports = function(ctx) {
 			return ctx.fail(err);
 
 		ctx.db.query(
-			"INSERT INTO collections (name) "+
-			"VALUES ($1) "+
+			"INSERT INTO collections (name, user_id) "+
+			"VALUES ($1, $2) "+
 			"RETURNING id",
-			[data.name],
+			[data.name, ctx.session.userId],
 			queryCallback
 		);
 	});

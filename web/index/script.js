@@ -1,4 +1,4 @@
-(function() {
+$(document).on("ready", function() {
 	if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
 		notify("Your Browser Sucks.");
 	}
@@ -21,9 +21,10 @@
 	var files = [];
 
 	$("#uploader-input").on("change", function(evt) {
+		console.log(evt);
 
 		//Enable upload button
-		$("#uploader-upload").removeAttr("disabled")
+		$("#uploader-upload").removeAttr("disabled");
 
 		var inputFiles = evt.target.files;
 
@@ -115,4 +116,4 @@
 			});
 		});
 	});
-})();
+});

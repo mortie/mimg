@@ -26,6 +26,11 @@ var endpoints = {
 	"/register/style.css": "register/style.css",
 	"/register/script.js": "register/script.js",
 
+	//Profile
+	"/profile": "profile/index.node.js",
+	"/profile/style.css": "profile/style.css",
+	"/profile/script.js": "profile/script.js",
+
 	//Viewer
 	"/view": "view/index.node.js",
 	"/view/style.css": "view/style.css",
@@ -48,8 +53,6 @@ var db = new pg.Client(conf.db);
 
 //Function to run on each request
 function onRequest(req, res) {
-	console.log("Request for "+req.url);
-
 	var ctx = new Context({
 		req: req,
 		res: res,
@@ -100,3 +103,40 @@ if (!conf.debug) {
 		console.trace(err);
 	});
 }
+
+function command(tokens) {
+	switch(tokens[0]) {
+
+	//Reload configuration
+	case "reload-conf":
+		var c = JSON.parse(fs.readFileSync("conf.json"));
+		for (var i in c)
+			conf[i] = c[i];
+		break;
+
+	//Reload HTML
+	case "reload-html":
+		var l = loader.load(endpoints, conf);
+		for (var i in l)
+			loaded[i] = l[i];
+		break;
+
+	//Reload everything
+	case "reload":
+		command(["reload-conf"]);
+		command(["reload-html"]);
+		break;
+
+	default: return false;
+	}
+	return true;
+}
+
+process.stdin.on("data", function(line) {
+	var tokens = line.toString().split(/\s+/);
+	if (command(tokens)) {
+		return console.log(tokens[0]+" completed successfully.");
+	} else {
+		return console.log("Command not found: "+tokens[0]);
+	}
+});

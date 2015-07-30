@@ -1,0 +1,9 @@
+#profile {
+	text-align: center;
+}
+
+#collections {
+	text-align: left;
+	width: auto;
+	display: inline-block;
+}

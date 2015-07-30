@@ -2,10 +2,9 @@
 <html>
 	<head>
 		{{template#head}}
-		<link rel="stylesheet" href="/register/style.css">
 	</head>
 	<body>
-		{{template#global}}
+		{{template#body}}
 
 		<div class="container" id="register">
 			<form id="register-form">
@@ -21,7 +20,7 @@
 				</div>
 				<div class="form-group">
 					<label>Repeat Password<br>
-						<input type="psasword" id="register-password-repeat">
+						<input type="password" id="register-password-repeat">
 					</label>
 				</div>
 				<div class="submit-container">
@@ -29,7 +28,5 @@
 				</div>
 			</form>
 		</div>
-
-		<script src="/index/script.js"></script>
 	</body>
 </html>
