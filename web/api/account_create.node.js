@@ -8,14 +8,17 @@ module.exports = function(ctx) {
 		if (!data.username || !data.password)
 			return ctx.fail("You must provide a username and a password.");
 
-		var params = scrypt.params(1);
+		if (!/^[a-zA-Z0-9_\-]+$/.test(data.username))
+			return ctx.fail("Username contains illegal characters.");
+
+		var params = scrypt.params(ctx.conf.scrypt.maxtime);
 		scrypt.hash(new Buffer(data.password), params, function(err, hash) {
 			if (err)
 				return ctx.fail(err);
 
 			ctx.db.query(
 				"INSERT INTO users (username, pass_hash) "+
-				"VALUES ($1, $2 )"+
+				"VALUES ($1, $2) "+
 				"RETURNING id",
 				[data.username, hash.toString("hex")],
 				queryCallback

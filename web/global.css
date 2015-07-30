@@ -6,6 +6,10 @@
 	margin-bottom: 0px;
 }
 
+.navbar form {
+	border: none;
+}
+
 #login-dropdown .dropdown-menu {
 	padding: 10px;
 }
@@ -23,7 +27,36 @@ form .submit-container {
 	text-align: right;
 }
 form .submit-container .btn {
-	width: 75px;
+	width: 100%;
+}
+form input[type="text"],
+form input[type="password"] {
+	width: 100%;
+}
+form label {
+	width: 100%;
+}
+form.container {
+	border: 1px solid #CCC;
+	border-radius: 4px;
+	padding: 10px !important;
+	margin-bottom: 10px;
+}
+
+.title {
+	font-weight: bold;
+	font-size: 1.2em;
+	margin-bottom: 6px;
+}
+
+.small-width-container {
+	text-align: center !important;
+}
+.small-width {
+	width: auto !important;
+	text-align: left !important;
+	max-width: 400px !important;
+	width: 90% !important;
 }
 
 #notify-box {

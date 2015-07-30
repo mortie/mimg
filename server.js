@@ -31,6 +31,11 @@ var endpoints = {
 	"/profile/style.css": "profile/style.css",
 	"/profile/script.js": "profile/script.js",
 
+	//Settings
+	"/settings": "settings/index.node.js",
+	"/settings/style.css": "settings/style.css",
+	"/settings/script.js": "settings/script.js",
+
 	//Viewer
 	"/view": "view/index.node.js",
 	"/view/style.css": "view/style.css",
@@ -44,7 +49,8 @@ var endpoints = {
 	"/api/collection_create": "api/collection_create.node.js",
 	"/api/account_create": "api/account_create.node.js",
 	"/api/account_login": "api/account_login.node.js",
-	"/api/account_logout": "api/account_logout.node.js"
+	"/api/account_logout": "api/account_logout.node.js",
+	"/api/account_change_password": "api/account_change_password.node.js"
 }
 
 var loaded = loader.load(endpoints, conf);

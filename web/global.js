@@ -40,8 +40,8 @@
 	util.htmlEntities = function(str) {
 		return str.replace(/&/g, "&amp;")
 			.replace(/</g, "&lt;")
-			.replace(/>/g, "&lt;")
-			.replace(/"/g, "&quot");
+			.replace(/>/g, "&gt;")
+			.replace(/"/g, "&quot;");
 	}
 
 	util.api = function(name, data, cb, getXhr) {
@@ -64,6 +64,9 @@
 					getXhr(xhr);
 
 				return xhr;
+			},
+			error: function(xhr, status, err) {
+				cb(err);
 			}
 		}).done(function(res) {
 			console.log("response from "+name+":");
@@ -114,9 +117,20 @@
 			util.pad(date.getMinutes().toString(), 2, "0");
 	}
 
+	util.prevent = function(evt) {
+		evt.preventDefault();
+		evt.stopPropagation();
+	}
+
+	util.redirect = function(url, timeout) {
+		setTimeout(function() {
+			location.href = url;
+		}, timeout || 1000);
+	}
+
 	window.display = {};
 
-	window.display.loggedIn = function() {
+	display.loggedIn = function() {
 		util.api("template?navbar-loggedin", {}, function(err, res) {
 			if (err)
 				return util.error(err);
@@ -127,10 +141,20 @@
 		});
 	}
 
+	display.logIn = function() {
+		util.api("template?navbar-login", {}, function(err, res) {
+			if (err)
+				return util.error(err);
+
+			$("#navbar-profile-container").html(res.html);
+
+			util.notify("Logged Out", "You are now logged out.");
+		});
+	}
+
 	$(document).ready(function() {
 		$("#login-form").on("submit", function(evt) {
-			evt.stopPropagation();
-			evt.preventDefault();
+			util.prevent(evt);
 
 			var username = $("#login-username").val();
 			var password = $("#login-password").val();

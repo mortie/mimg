@@ -67,7 +67,7 @@ $(document).on("ready", function() {
 
 		//First, create a collection
 		util.api("collection_create", {
-			name: "New Collection"
+			name: ($("#uploader-collection-name").val() || "Collection")
 		}, function(err, res) {
 			if (err)
 				return util.error(err);
@@ -75,10 +75,11 @@ $(document).on("ready", function() {
 			var collectionId = res.id;
 
 			//Go to collection once files are uploaded
-			var a = util.async(files.length, function() {
-				setTimeout(function() {
-					location.href = "/view?"+collectionId;
-				}, 1000);
+			var a = util.async(files.length, function(res) {
+				if (res.error)
+					util.redirect("/", 5000);
+				else
+					util.redirect("/view?"+collectionId);
 			});
 
 			//Loop through files, uploading them
@@ -108,8 +109,10 @@ $(document).on("ready", function() {
 					collectionId: collectionId,
 					file: f
 				}, function(err, res) {
-					if (err)
+					if (err) {
+						a("error", true);
 						return util.error(err);
+					}
 
 					a();
 				}, getXhr);

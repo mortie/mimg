@@ -6,10 +6,10 @@
 	<body>
 		{{template#body}}
 
-		<div id="profile" class="container">
-			<div id="collections" class="container">
-				<div class="name">{{arg#username}}</div>
-				{{arg#collections}}
+		<div id="profile" class="container small-width-container">
+			<div id="collections" class="container small-width">
+				<div class="title">{{arg#username}}</div>
+				{{noescape#collections}}
 			</div>
 		</div>
 	</body>

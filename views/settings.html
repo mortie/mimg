@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{{template#head}}
+	</head>
+	<body>
+		{{template#body}}
+
+		<div id="settings" class="container small-width-container">
+			<a class="title" href="/profile?{{session#userId}}">{{session#username}}</a>
+
+			<form id="password-form" class="container small-width">
+				<div class="title">Change Password</div>
+				<div class="form-group">
+					<label>Old Password<br>
+						<input type="password" id="password-old">
+					</label>
+				</div>
+				<div class="form-group">
+					<label>New Password<br>
+						<input type="password" id="password-new">
+					</label>
+				</div>
+				<div class="form-group">
+					<label>Repeat Password<br>
+						<input type="password" id="password-repeat">
+					</label>
+				</div>
+				<div class="submit-container">
+					<button type="submit" class="btn btn-default">Submit</button>
+				</div>
+			</form>
+
+			<form id="logout-form" class="container small-width">
+				<div class="title">Log Out</div>
+				<div class="submit-container">
+					<button type="submit" class="btn btn-default">Log Out</button>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

@@ -1,8 +1,6 @@
 $(document).on("ready", function() {
 	$("#register-form").on("submit", function(evt) {
-		console.log(evt);
-		evt.preventDefault();
-		evt.stopPropagation();
+		util.prevent(evt);
 
 		var username = $("#register-username").val();
 		var password = $("#register-password").val();
@@ -26,9 +24,7 @@ $(document).on("ready", function() {
 
 			display.loggedIn();
 
-			setTimeout(function() {
-				location.href = "/profile?"+res.id;
-			}, 1000);
+			util.redirect("/settings");
 		});
 	});
 });

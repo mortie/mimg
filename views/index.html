@@ -9,9 +9,10 @@
 		<div id="uploader" class="container">
 			<input type="file" accept="image/*" id="uploader-input" class="hidden" multiple>
 
-			<button class="btn btn-default" onclick="$('#uploader-input').click()">
+			<button class="btn btn-default" onclick="$('#uploader-input').click()" id="uploader-select-files">
 				Select Files
 			</button>
+			<input type="text" id="uploader-collection-name" placeholder="Collection">
 			<button class="btn btn-default" id="uploader-upload" disabled>
 				Upload
 			</button>
