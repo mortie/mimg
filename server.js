@@ -67,7 +67,7 @@ try {
 	else
 		throw err;
 }
-currentRun = (currentRun >= conf.maxRuns ? 0 : currentRun);
+currentRun = (currentRun >= conf.max_runs ? 0 : currentRun);
 currentRun = (currentRun || 0) + 1;
 conf.web.currentRun = currentRun.toString();
 fs.writeFileSync(".currentRun", currentRun, "utf8");
@@ -102,8 +102,8 @@ function onRequest(req, res) {
 		ep(ctx);
 	} else {
 
-		//Cache content for a year
-		ctx.setHeader("Cache-Control", "public, max-age=31536000");
+		//Cache content for a while
+		ctx.setHeader("Cache-Control", "public, max-age="+conf.cache_max_age);
 
 		//Gzip and such
 		if (ctx.shouldGzip && gzipCache[req.url]) {
@@ -132,7 +132,31 @@ db.connect(function() {
 	server.listen(conf.port);
 
 	console.log("Listening on port "+conf.port+".");
+
+	purgeCollections();
 });
+
+//On an interval, delete old collections from anonymous users
+function purgeCollections() {
+	var timeout = conf.purge_collections_timeout;
+	db.query(
+		"DELETE FROM collections "+
+		"WHERE user_id IS NULL "+
+		"AND date_created < NOW() - INTERVAL '"+timeout+"'",
+		function(err, res) {
+			if (err)
+				throw err;
+
+			if (res.rowCount > 0) {
+				console.log(
+					"Deleted "+res.rowCount+" collections "+
+					"from over "+timeout+" ago."
+				);
+			}
+		}
+	);
+}
+setTimeout(purgeCollections, conf.purge_collections_interval);
 
 //We don't want to crash even if something throws an uncaught exception.
 if (!conf.debug) {
