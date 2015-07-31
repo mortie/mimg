@@ -7,8 +7,14 @@
 		{{template#body}}
 
 		<div id="settings" class="container small-width-container">
-			<a class="title" href="/profile?{{session#userId}}">{{session#username}}</a>
+			<div class="title" href="/profile?{{session#userId}}">{{session#username}}</div>
 
+			<form id="collections-form" class="container small-width">
+				<div class="title">My Collections</div>
+				<div class="submit-container">
+					<a class="btn btn-default" href="/profile?{{session#userId}}">My Collections</a>
+				</div>
+			</form>
 			<form id="password-form" class="container small-width">
 				<div class="title">Change Password</div>
 				<div class="form-group">
