@@ -24,5 +24,6 @@
 	"dir": {
 		"imgs": "imgs"
 	},
-	"debug": false
+	"debug": false,
+	"maxRuns": 9999
 }

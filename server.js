@@ -2,6 +2,7 @@ var http = require("http");
 var https = require("https");
 var fs = require("fs");
 var domain = require("domain");
+var zlib = require("zlib");
 var loader = require("./lib/loader.js");
 var pg = require("pg");
 var Context = require("./lib/context.js");
@@ -53,9 +54,29 @@ var endpoints = {
 	"/api/account_change_password": "api/account_change_password.node.js"
 }
 
+//We cache static resources for a long time. However, we want to invalidate
+//the browser's cache whenever a file updates. Therefore, we append
+//a number to all static files, and the number increases every time we start
+//the server. currentRun is that number.
+var currentRun;
+try {
+	currentRun = parseInt(fs.readFileSync(".currentRun", "utf8"));
+} catch (err) {
+	if (err.code === "ENOENT")
+		currentRun = 0;
+	else
+		throw err;
+}
+currentRun = (currentRun >= conf.maxRuns ? 0 : currentRun);
+currentRun = (currentRun || 0) + 1;
+conf.web.currentRun = currentRun.toString();
+fs.writeFileSync(".currentRun", currentRun, "utf8");
+
 var loaded = loader.load(endpoints, conf);
 
 var db = new pg.Client(conf.db);
+
+var gzipCache = {};
 
 //Function to run on each request
 function onRequest(req, res) {
@@ -80,13 +101,27 @@ function onRequest(req, res) {
 	if (typeof ep == "function") {
 		ep(ctx);
 	} else {
-		ctx.end(ep);
+
+		//Cache content for a year
+		ctx.setHeader("Cache-Control", "public, max-age=31536000");
+
+		//Gzip and such
+		if (ctx.shouldGzip && gzipCache[req.url]) {
+			ctx.end(gzipCache[req.url], true);
+		} else if (ctx.shouldGzip) {
+			zlib.gzip(ep, function(err, res) {
+				gzipCache[req.url] = res;
+				ctx.end(res, true);
+			});
+		} else {
+			ctx.end(ep);
+		}
 	}
 }
 
 //Initiate a postgresql client
 db.connect(function() {
-	
+
 	//Create HTTP or HTTPS server
 	var server;
 	if (conf.use_https) {
@@ -109,40 +144,3 @@ if (!conf.debug) {
 		console.trace(err);
 	});
 }
-
-function command(tokens) {
-	switch(tokens[0]) {
-
-	//Reload configuration
-	case "reload-conf":
-		var c = JSON.parse(fs.readFileSync("conf.json"));
-		for (var i in c)
-			conf[i] = c[i];
-		break;
-
-	//Reload HTML
-	case "reload-html":
-		var l = loader.load(endpoints, conf);
-		for (var i in l)
-			loaded[i] = l[i];
-		break;
-
-	//Reload everything
-	case "reload":
-		command(["reload-conf"]);
-		command(["reload-html"]);
-		break;
-
-	default: return false;
-	}
-	return true;
-}
-
-process.stdin.on("data", function(line) {
-	var tokens = line.toString().split(/\s+/);
-	if (command(tokens)) {
-		return console.log(tokens[0]+" completed successfully.");
-	} else {
-		return console.log("Command not found: "+tokens[0]);
-	}
-});
