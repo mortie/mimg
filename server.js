@@ -40,6 +40,7 @@ var endpoints = {
 	//Viewer
 	"/view": "view/index.node.js",
 	"/view/style.css": "view/style.css",
+	"/view/script.js": "view/script.js",
 
 	//Plain images
 	"/i": "i/index.node.js",
@@ -92,7 +93,7 @@ function onRequest(req, res) {
 	var ep = loaded.endpoints[req.url.split("?")[0]];
 
 	//If the file doesn't exist, we 404.
-	if (!ep) {
+	if (ep === undefined) {
 		ep = loaded.endpoints["/404"];
 		ctx.setStatus(404);
 	}
