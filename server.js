@@ -12,7 +12,7 @@ var conf = JSON.parse(fs.readFileSync("conf.json"));
 var endpoints = {
 
 	//General
-	"/favicon.ico": "favicon.ico",
+	"/favicon.ico": "favicon.node.js",
 	"/global.css": "global.css",
 	"/global.js": "global.js",
 	"/404": "404.node.js",

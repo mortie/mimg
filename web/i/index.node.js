@@ -14,7 +14,7 @@ module.exports = function(ctx) {
 	readStream.pipe(ctx.res);
 
 	readStream.on("error", function(err){
-		if (err.code == "ENOENT")
+		if (err.code === "ENOENT")
 			ctx.end(ctx.view("404"));
 		else
 			ctx.end(err.toString());
