@@ -70,7 +70,7 @@ try {
 }
 currentRun = (currentRun >= conf.max_runs ? 0 : currentRun);
 currentRun = (currentRun || 0) + 1;
-conf.web.currentRun = currentRun.toString();
+conf.current_run = currentRun.toString();
 fs.writeFileSync(".currentRun", currentRun, "utf8");
 
 var loaded = loader.load(endpoints, conf);
