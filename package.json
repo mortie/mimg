@@ -16,6 +16,7 @@
   },
   "license": "GPLv2",
   "dependencies": {
+    "browser-prefix": "^0.1.0",
     "formidable": "^1.0.17",
     "html-minifier": "^0.7.2",
     "pg": "^4.4.0",

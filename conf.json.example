@@ -1,7 +1,6 @@
 {
 	"title": "Spus",
 	"base_url": "http://example.com",
-	"webroot": "web",
 	"port": 8081,
 	"db": {
 		"host": "localhost",
@@ -20,7 +19,8 @@
 	"minify": true,
 	"session_timeout": 1800000,
 	"dir": {
-		"imgs": "imgs"
+		"imgs": "imgs",
+		"web": "web
 	},
 	"debug": false,
 	"max_runs": 9999,

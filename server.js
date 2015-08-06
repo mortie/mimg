@@ -99,23 +99,27 @@ function onRequest(req, res) {
 	}
 
 	//Execute if it's a .node.js, or just respond with the contents of the file
-	if (typeof ep == "function") {
-		ep(ctx);
+	if (ep.func) {
+		ep.func(ctx);
 	} else {
 
 		//Cache content for a while
 		ctx.setHeader("Cache-Control", "public, max-age="+conf.cache_max_age);
 
+		//Set appropriate content-type headers
+		if (ep.mimeType)
+			ctx.setHeader("Content-Type", ep.mimeType);
+
 		//Gzip and such
 		if (ctx.shouldGzip && gzipCache[req.url]) {
 			ctx.end(gzipCache[req.url], true);
 		} else if (ctx.shouldGzip) {
-			zlib.gzip(ep, function(err, res) {
+			zlib.gzip(ep.str, function(err, res) {
 				gzipCache[req.url] = res;
 				ctx.end(res, true);
 			});
 		} else {
-			ctx.end(ep);
+			ctx.end(ep.str);
 		}
 	}
 }
