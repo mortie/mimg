@@ -1,3 +1,5 @@
+var fs = require("fs");
+
 module.exports = function(ctx) {
 	ctx.getPostData(function(err, data) {
 		if (err)
@@ -16,10 +18,17 @@ module.exports = function(ctx) {
 		if (err)
 			return ctx.fail(err);
 
-		ctx.session.collectionId = res.rows[0].id;
+		var id = res.rows[0].id;
 
-		ctx.succeed({
-			id: res.rows[0].id
+		fs.mkdir(ctx.conf.dir.imgs+"/"+id, function(err) {
+			if (err)
+				return ctx.fail(err);
+
+			ctx.session.lastCollectionId = id;
+
+			ctx.succeed({
+				id: id
+			});
 		});
 	}
 }

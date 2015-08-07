@@ -23,6 +23,7 @@ module.exports = function(ctx) {
 		res.rows.forEach(function(row) {
 			images += ctx.template("image", {
 				title: row.name,
+				collection: id,
 				id: row.id,
 				extension: row.extension,
 				description: row.description

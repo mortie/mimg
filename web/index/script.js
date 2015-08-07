@@ -74,12 +74,21 @@ $(document).on("ready", function() {
 
 			var collectionId = res.id;
 
-			//Go to collection once files are uploaded
+			//Go to collection once files are uploaded, or
+			//delete the collection if it failed
 			var a = util.async(files.length, function(res) {
-				if (res.error)
-					util.redirect("/", 5000);
-				else
+				if (res.error) {
+					util.api("collection_delete", {
+						id: collectionId
+					}, function(err, res) {
+						if (err)
+							return util.error(err);
+
+						util.redirect("/", 5000);
+					});
+				} else {
 					util.redirect("/view?"+collectionId);
+				}
 			});
 
 			//Loop through files, uploading them

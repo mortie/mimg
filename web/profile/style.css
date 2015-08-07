@@ -20,8 +20,8 @@
 }
 
 .collection .date-created {
-	width: 45%;
+	width: 190px;
 }
 .collection .name {
-	width: calc(55% - 43px);
+	width: calc(100% - 43px - 190px);
 }

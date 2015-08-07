@@ -3,6 +3,7 @@ var https = require("https");
 var fs = require("fs");
 var domain = require("domain");
 var zlib = require("zlib");
+var wrench = require("wrench");
 var loader = require("./lib/loader.js");
 var pg = require("pg");
 var Context = require("./lib/context.js");
@@ -49,6 +50,7 @@ var endpoints = {
 	"/api/template": "api/template.node.js",
 	"/api/image_create": "api/image_create.node.js",
 	"/api/collection_create": "api/collection_create.node.js",
+	"/api/collection_delete": "api/collection_delete.node.js",
 	"/api/account_create": "api/account_create.node.js",
 	"/api/account_login": "api/account_login.node.js",
 	"/api/account_logout": "api/account_logout.node.js",
@@ -147,10 +149,18 @@ function purgeCollections() {
 	db.query(
 		"DELETE FROM collections "+
 		"WHERE user_id IS NULL "+
-		"AND date_created < NOW() - INTERVAL '"+timeout+"'",
+		"AND date_created < NOW() - INTERVAL '"+timeout+"' "+
+		"RETURNING id",
 		function(err, res) {
 			if (err)
 				throw err;
+
+			res.rows.forEach(function(row) {
+				wrench.rmdirSyncRecursive(
+					conf.dir.imgs+"/"+
+					row.id
+				);
+			});
 
 			if (res.rowCount > 0) {
 				console.log(

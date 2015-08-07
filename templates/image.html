@@ -1,8 +1,8 @@
 <div class="image small-width bordered">
 	<div class="title">{{arg#title}}</div>
-	<a href="/i?{{arg#id}}.{{arg#extension}}">
-		<img class="img-rounded" src="/i?{{arg#id}}.{{arg#extension}}">
+	<a href="/i?{{arg#collection}}/{{arg#id}}.{{arg#extension}}">
+		<img class="img-rounded" src="/i?{{arg#collection}}/{{arg#id}}.{{arg#extension}}">
 	</a>
 	<div class="description">{{arg#description}}</div>
-	<input class="url" type="text" value="{{conf#base_url}}/i?{{arg#id}}.{{arg#extension}}" onclick="select()">
+	<input class="url" type="text" value="{{conf#base_url}}/i?{{arg#collection}}/{{arg#id}}.{{arg#extension}}" onclick="select()">
 </div>

@@ -1,5 +1,5 @@
-<div class="collection">
+<div class="collection" data-id="{{arg#id}}">
 	<span class="date-created">{{arg#date_created}}</span>
 	<a class="name" href="/view?{{arg#id}}">{{arg#name}}</a>
-	{{arg#own_profile ? '<button class="delete btn btn-default">X</button>' : ''}}
+	{{arg#own_profile ? template#delete-button : ''}}
 </div>
