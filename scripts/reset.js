@@ -18,7 +18,14 @@ try {
 
 function deleteFiles(dir) {
 	fs.readdirSync(dir).forEach(function(f) {
-		wrench.rmdirSyncRecursive(dir+"/"+f);
+		if (f[0] === ".")
+			return;
+
+		try {
+			wrench.rmdirSyncRecursive(dir+"/"+f);
+		} catch (err) {
+			//:)
+		}
 	});
 }
 

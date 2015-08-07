@@ -1,15 +1,27 @@
 var fs = require("fs");
 var zlib = require("zlib");
+var log = require("mlogger");
 
 var gzipped;
 
-var favicon = fs.readFileSync("favicon.ico");
+var favicon;
+try {
+	favicon = fs.readFileSync("favicon.ico");
+} catch (err) {
+	if (err.code === "ENOENT")
+		log.notice("No favicon.ico found.");
+	else
+		throw err;
+}
 
-zlib.gzip(favicon, function(err, res) {
-	gzipped = res;
-});
+if (favicon !== undefined) {
+	zlib.gzip(favicon, function(err, res) {
+		gzipped = res;
+	});
+}
 
 module.exports = function(ctx) {
+
 	if (favicon) {
 		ctx.res.setHeader(
 			"Cache-Control",

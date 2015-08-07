@@ -4,8 +4,9 @@ var fs = require("fs");
 var domain = require("domain");
 var zlib = require("zlib");
 var wrench = require("wrench");
-var loader = require("./lib/loader.js");
 var pg = require("pg");
+var log = require("mlogger");
+var loader = require("./lib/loader.js");
 var Context = require("./lib/context.js");
 
 var conf = JSON.parse(fs.readFileSync("conf.json"));
@@ -138,7 +139,7 @@ db.connect(function() {
 	}
 	server.listen(conf.port);
 
-	console.log("Listening on port "+conf.port+".");
+	log.info("Listening on port "+conf.port+".");
 
 	purgeCollections();
 });
@@ -163,7 +164,7 @@ function purgeCollections() {
 			});
 
 			if (res.rowCount > 0) {
-				console.log(
+				log.info(
 					"Deleted "+res.rowCount+" collections "+
 					"from over "+timeout+" ago."
 				);

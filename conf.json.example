@@ -20,7 +20,7 @@
 	"session_timeout": 1800000,
 	"dir": {
 		"imgs": "imgs",
-		"web": "web
+		"web": "web"
 	},
 	"debug": false,
 	"max_runs": 9999,
