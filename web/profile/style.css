@@ -1,0 +1,27 @@
+.collection {
+	height: 45px;
+	white-space: nowrap;
+	box-sizing: content-box;
+	padding-bottom: 1px;
+	border-bottom: 1px solid #CCC;
+}
+.collection:last-child {
+	border: none;
+}
+
+.collection .date-created,
+.collection .name {
+	line-height: 45px;
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	vertical-align: middle;
+}
+
+.collection .date-created {
+	width: 45%;
+}
+.collection .name {
+	width: calc(55% - 43px);
+}

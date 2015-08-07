@@ -2,7 +2,7 @@ module.exports = function(ctx) {
 	var id = parseInt(ctx.query);
 
 	if (isNaN(id))
-		return ctx.end(ctx.view("404"));
+		return ctx.err404();
 
 	ctx.db.query(
 		"SELECT id, name, description, extension "+
@@ -17,7 +17,7 @@ module.exports = function(ctx) {
 			return ctx.fail(err);
 
 		if (!res.rows[0])
-			return ctx.end(ctx.view("404"));
+			return ctx.err404();
 
 		var images = "";
 		res.rows.forEach(function(row) {

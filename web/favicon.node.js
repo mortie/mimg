@@ -23,7 +23,6 @@ module.exports = function(ctx) {
 	} else if (favicon) {
 		ctx.res.end(favicon);
 	} else {
-		ctx.res.writeHead(404);
-		ctx.end(ctx.view("404"));
+		ctx.err404();
 	}
 }

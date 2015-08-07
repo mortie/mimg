@@ -1,5 +1,8 @@
 module.exports = function(ctx) {
-	var id = ctx.query;
+	var id = parseInt(ctx.query);
+
+	if (isNaN(id))
+		return ctx.err404();
 
 	ctx.db.query(
 		"SELECT name, date_created, id "+
@@ -22,11 +25,11 @@ module.exports = function(ctx) {
 			return ctx.fail(err);
 
 		if (!res.collections || !res.users)
-			return ctx.end(ctx.view("404"));
+			return ctx.err404();
 
 		var user = res.users.rows[0];
 		if (!user)
-			return ctx.end(ctx.view("404"));
+			return ctx.err404();
 
 		var collections = "";
 		res.collections.rows.forEach(function(row) {
@@ -35,7 +38,8 @@ module.exports = function(ctx) {
 			collections += ctx.template("collection", {
 				name: row.name,
 				date_created: d.toString(),
-				id: row.id
+				id: row.id,
+				own_profile: (ctx.session.userId === id)
 			});
 		});
 

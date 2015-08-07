@@ -36,11 +36,11 @@ form input[type="password"] {
 form label {
 	width: 100%;
 }
-form.container {
+
+.bordered {
 	border: 1px solid #CCC;
 	border-radius: 4px;
 	padding: 10px !important;
-	margin-bottom: 10px;
 }
 
 .title {
@@ -55,8 +55,10 @@ form.container {
 .small-width {
 	width: auto !important;
 	text-align: left !important;
-	max-width: 400px !important;
+	max-width: 540px !important;
 	width: 90% !important;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 #notify-box {
