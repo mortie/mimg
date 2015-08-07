@@ -1,5 +1,6 @@
 var fs = require("fs");
 var pg = require("pg");	
+var wrench = require("wrench");
 
 var conf = JSON.parse(fs.readFileSync("./conf.json"));
 
@@ -7,9 +8,17 @@ var sql = fs.readFileSync("scripts/sql/reset.sql", "utf8");
 
 var client = new pg.Client(conf.db);
 
+try {
+	fs.unlinkSync(".sessions");
+	fs.unlinkSync(".currentRun");
+} catch (err) {
+	if (err.code !== "ENOENT")
+		throw err;
+}
+
 function deleteFiles(dir) {
 	fs.readdirSync(dir).forEach(function(f) {
-		fs.unlinkSync(dir+"/"+f);
+		wrench.rmdirSyncRecursive(dir+"/"+f);
 	});
 }
 
