@@ -2,30 +2,65 @@
 	"title": "Spus",
 	"base_url": "http://example.com",
 	"port": 8081,
+
+	# PostrgeSQL credentials
 	"db": {
 		"host": "localhost",
 		"user": "dbuser",
 		"password": "dbpass",
 		"database": "spus"
 	},
+
+	# HTTPS settings
 	"use_https": false,
 	"https": {
 		"key": "",
 		"cert": ""
 	},
+
+	# Open Web Analytics settings
+	"use_owa": false,
+	"owa": {
+		"base_url": "",
+		"site_id": ""
+	},
+
+	# Scrypt settings for password hashing
 	"scrypt": {
 		"maxtime": 1
 	},
+
+	# Should we minify resources?
 	"minify": true,
+
+	# Timeout in milliseconds before a session is destroyed
 	"session_timeout": 1800000,
+
+	# Various directories
 	"dir": {
 		"imgs": "imgs",
 		"web": "web"
 	},
+
+	# In debug mode, an uncaught exception will stop the program and display
+	# a neat stack trace.
 	"debug": false,
+
+	# To invalidate cache, we add "?$n" to static resource requests
+	# (scripts, CSS, etc.), where "$n" is an incrementing number.
+	# `max_runs` is how big $n can be before we reset to 0.
 	"max_runs": 9999,
+
+	# Time in seconds before static content caches are invalidated
 	"cache_max_age": 2628000,
+
+	# Time in seconds before image caches are invalidated
 	"cache_max_age_images": 2628000,
+
+	# How long time it should take before anonymous images are deleted
 	"purge_collections_timeout": "2 days",
+
+	# Time in milliseconds between each time we query the database for old
+	# anonymous pictures
 	"purge_collections_interval": 1800000
 }

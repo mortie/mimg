@@ -9,7 +9,7 @@ var log = require("mlogger");
 var loader = require("./lib/loader.js");
 var Context = require("./lib/context.js");
 
-var conf = JSON.parse(fs.readFileSync("conf.json"));
+var conf = JSON.parse(fs.readFileSync("conf.json", "utf8").replace(/^\s*#.+/gm, ""));
 
 var endpoints = {
 

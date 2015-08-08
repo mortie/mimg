@@ -10,3 +10,5 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" defer></script>
 <script src="/global.js?{{conf#current_run}}" defer></script>
 <script src="/{{env#view}}/script.js?{{conf#current_run}}" defer></script>
+
+{{conf#use_owa ? template#open-web-analytics : ''}}
