@@ -11,7 +11,7 @@ $(document).on("ready", function() {
 					'<div class="progress-bar"></div>'+
 					'<button class="btn btn-default delete" onclick="uploaderDelete(this.parentNode)">X</button>'+
 					'<img class="thumbnail" src="'+f.thumbnail+'">'+
-					'<span class="name">'+util.htmlEntities(f.name)+'</span>'+
+					'<input class="name" value="'+util.htmlEntities(f.name)+'">'+
 				'</li>'
 			);
 		});
@@ -28,7 +28,7 @@ $(document).on("ready", function() {
 
 		var inputFiles = evt.target.files;
 
-		for (var i = 0; i < inputFiles.length; ++i) (function() {
+		function createThumbnail(i) {
 			var f = inputFiles[i];
 
 			f.thumbnail = "";
@@ -38,10 +38,14 @@ $(document).on("ready", function() {
 			reader.onload = function(evt) {
 				f.thumbnail = reader.result;
 				draw(files);
-			}
+			};
 
 			files.push(inputFiles[i]);
-		})();
+		}
+
+		for (var i = 0; i < inputFiles.length; ++i) {
+			createThumbnail(i);
+		}
 
 		draw(files);
 	});
@@ -50,7 +54,7 @@ $(document).on("ready", function() {
 		var index = elem.getAttribute("data-index");
 		delete files[index];
 		draw(files);
-	}
+	};
 
 	//Upload things when the upload button is clicked
 	$("#uploader-upload").on("click", function(evt) {

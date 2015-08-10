@@ -12,7 +12,7 @@
 		"October",
 		"November",
 		"December"
-	]
+	];
 
 	window.util = {};
 
@@ -26,7 +26,7 @@
 		notify.timeout = setTimeout(function() {
 			elem.removeClass("active");
 		}, 5000);
-	}
+	};
 	$(document).ready(function() {
 		$("#notify-box").on("mouseenter", function() {
 			clearTimeout(util.notify.timeout);
@@ -35,14 +35,14 @@
 
 	util.error = function(body) {
 		util.notify("Error: "+body);
-	}
+	};
 
 	util.htmlEntities = function(str) {
 		return str.replace(/&/g, "&amp;")
 			.replace(/</g, "&lt;")
 			.replace(/>/g, "&gt;")
 			.replace(/"/g, "&quot;");
-	}
+	};
 
 	util.api = function(name, data, cb, getXhr) {
 		var fd = new FormData();
@@ -76,7 +76,7 @@
 			else
 				cb(res.error);
 		});
-	}
+	};
 
 	util.async = function(n, cb) {
 		if (typeof n !== "number")
@@ -95,8 +95,8 @@
 				cb(res);
 			else
 				n -= 1;
-		}
-	}
+		};
+	};
 
 	util.pad = function(str, length, padChar) {
 		var missing = (length - str.length) + 1;
@@ -105,7 +105,7 @@
 			return str;
 
 		return new Array(missing).join(padChar) + str;
-	}
+	};
 
 	util.dateToString = function(date) {
 		var day = util.pad(date.getDate().toString(), 2, "0");
@@ -115,18 +115,18 @@
 			date.getFullYear()+", "+
 			util.pad(date.getHours().toString(), 2, "0")+":"+
 			util.pad(date.getMinutes().toString(), 2, "0");
-	}
+	};
 
 	util.prevent = function(evt) {
 		evt.preventDefault();
 		evt.stopPropagation();
-	}
+	};
 
 	util.redirect = function(url, timeout) {
 		setTimeout(function() {
 			location.href = url;
 		}, timeout || 1000);
-	}
+	};
 
 	window.display = {};
 
@@ -139,7 +139,7 @@
 
 			util.notify("Logged In", "You are now logged in.");
 		});
-	}
+	};
 
 	display.logIn = function() {
 		util.api("template?navbar-login", {}, function(err, res) {
@@ -150,7 +150,7 @@
 
 			util.notify("Logged Out", "You are now logged out.");
 		});
-	}
+	};
 
 	$(document).ready(function() {
 		$("#login-form").on("submit", function(evt) {
