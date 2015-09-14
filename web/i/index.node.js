@@ -1,9 +1,10 @@
 var fs = require("fs");
 
 module.exports = function(ctx) {
-	var q = ctx.query.replace(/\..*/, "");
-	var collection = parseInt(q.split("/")[0]);
-	var id = parseInt(q.split("/")[1]);
+	var parts = ctx.query.split(".");
+	var collection = parseInt(parts[0]);
+	var id = parseInt(parts[1]);
+
 	if (!id || !collection)
 		return ctx.err404();
 
