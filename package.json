@@ -22,7 +22,7 @@
     "jshint": "^2.8.0",
     "mlogger": "^1.1.0",
     "pg": "^4.4.0",
-    "scrypt": "^4.0.7",
+    "scrypt": "^5.1.0",
     "uglify-js": "^2.4.24",
     "uglifycss": "0.0.15",
     "wrench": "^1.5.8"

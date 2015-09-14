@@ -28,7 +28,7 @@ module.exports = function(ctx) {
 
 		ctx.login(user.username, user.id);
 
-		scrypt.verify(
+		scrypt.verifyKdf(
 			new Buffer(user.pass_hash, "hex"),
 			new Buffer(ctx.postData.data.password),
 			function(err, success) {

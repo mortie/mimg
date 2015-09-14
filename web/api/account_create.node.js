@@ -11,8 +11,8 @@ module.exports = function(ctx) {
 		if (!/^[a-zA-Z0-9_\-]+$/.test(data.username))
 			return ctx.fail("Username contains illegal characters.");
 
-		var params = scrypt.params(ctx.conf.scrypt.maxtime);
-		scrypt.hash(new Buffer(data.password), params, function(err, hash) {
+		var params = scrypt.paramsSync(ctx.conf.scrypt.maxtime);
+		scrypt.kdf(new Buffer(data.password), params, function(err, hash) {
 			if (err)
 				return ctx.fail(err);
 
